@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin>
+	<!-- Templates -->
+	<screen name="PlayerTemplate">
+		<widget source="session.CurrentService" render="Label" position="center,8" size="1307,99" backgroundColor="secondBG" zPosition="1" foregroundColor="foreground" borderWidth="3" font="Regular;45" borderColor="black" valign="center" halign="center">
+			<convert type="ServiceName">NameOnly</convert>
+		</widget>
+		<ePixmap pixmap="dvr/scale1024.png" position="center,116" size="2048,16" zPosition="1"/>
+		<widget source="session.CurrentService" render="PositionGauge" position="center,112" size="2048,24" transparent="1" zPosition="4" pointer="dvr/position_pointer1024.png:2048,5" hidePointerOnZeroLength="1">
+			<convert type="ServicePosition">Gauge</convert>
+		</widget>
+		<widget source="session.CurrentService" render="Label" position="56,61" size="367,49" backgroundColor="secondBG" zPosition="4" foregroundColor="foreground" borderWidth="3" font="Regular;43" borderColor="black" valign="center" halign="left">
+			<convert type="ServicePosition">Position,ShowHours</convert>
+		</widget>
+		<widget source="session.CurrentService" render="Label" position="1737,61" size="367,49" backgroundColor="secondBG" zPosition="4" foregroundColor="foreground" borderWidth="3" font="Regular;43" borderColor="black" valign="center" halign="right">
+			<convert type="ServicePosition">Remaining,Plus,ShowHours</convert>
+		</widget>
+		<widget source="session.RecordState" render="Pixmap" pixmap="buttons/rec.png" position="2120,105" size="40,40" zPosition="3" alphatest="on">
+			<convert type="ConditionalShowHide"/>
+		</widget>
+		<widget source="global.CurrentTime" render="Label" borderWidth="3" position="1904,5" size="200,49" backgroundColor="secondBG" noWrap="1" zPosition="1" foregroundColor="foreground" font="Regular;44" valign="center" halign="right">
+			<convert type="ClockToText">Format:%-H:%M</convert>
+		</widget>
+		<widget source="session.CurrentService" render="Label" position="c-145,140" size="292,41" zPosition="2" backgroundColor="secondBG" foregroundColor="foreground" font="Regular;40" borderWidth="3" valign="top" halign="center">
+			<convert type="PliExtraInfo">ResolutionString</convert>
+		</widget>
+		<widget name="statusicon" position="56,147" size="33,33" pixmaps="icons/mp_play.png,icons/mp_pause.png,icons/mp_stop.png,icons/mp_forward.png,icons/mp_backward.png,icons/mp_slow.png" zPosition="5" alphatest="on"/>
+		<widget name="speed" position="96,140" size="147,53" font="Regular;40" backgroundColor="secondBG" borderWidth="4" borderColor="black" transparent="1" zPosition="5"/>
+	</screen>
+
+	<screen name="TopTemplate">
+		<eLabel position="0,0" size="e,116" backgroundColor="toptemplatecolor"/>
+		<ePixmap pixmap="border/smallshadowline.png" position="0,116" size="e,4" zPosition="2"/>
+		<widget source="ScreenPath" conditional="ScreenPath" render="Label" position="40,7" size="e-80,47" backgroundColor="secondBG" transparent="1" zPosition="1" font="Regular;32" valign="center" halign="left"/>
+		<widget source="Title" render="Label" position="40,48" size="e-40,60" backgroundColor="secondBG" transparent="1" zPosition="1" font="Regular;53" valign="center" halign="left"/>
+		<widget source="global.CurrentTime" render="Label" position="e-340,7" size="300,53" backgroundColor="secondBG" transparent="1" zPosition="1" font="Regular;48" valign="center" halign="right">
+			<convert type="ClockToText">Format:%-H:%M</convert>
+		</widget>
+		<widget source="global.CurrentTime" render="Label" position="e-640,60" size="600,49" backgroundColor="secondBG" transparent="1" zPosition="1" font="Regular;35" valign="center" halign="right">
+			<convert type="ClockToText">Date</convert>
+		</widget>
+	</screen>
+
+	<screen name="BasicTemplate">
+		<panel name="TopTemplate"/>
+		<ePixmap pixmap="border/smallshadowline.png" position="0,1360" size="2560,4"/>
+	</screen>
+
+	<screen name="TextTemplate"><!-- used by choicebox -->
+		<widget name="text" position="40,760" size="960,400" backgroundColor="secondBG" transparent="1" zPosition="1" font="Regular;43" valign="top" halign="block"/>
+	</screen>
+
+	<screen name="SelectionTemplate">
+		<panel name="BasicTemplate"/>
+		<widget source="session.VideoPicture" render="Pig" position="40,160" size="960,540" backgroundColor="transparent" zPosition="1"/>
+		<widget source="session.CurrentService" render="Label" position="40,167" size="960,40" zPosition="1" foregroundColor="white" transparent="1" font="Regular;37"
+		borderColor="black" borderWidth="3" noWrap="1" valign="center" halign="center">
+			<convert type="ServiceName">NameOnly</convert>
+		</widget>
+	</screen>
+
+	<screen name="PigTemplate">
+		<panel name="SelectionTemplate"/>
+		<panel name="ButtonTemplate"/>
+	</screen>
+
+	<screen name="PigLessTemplate"><!-- Usable area position="30,123" size="1860,855" -->
+		<panel name="BasicTemplate"/>
+		<panel name="ButtonTemplate"/>
+	</screen>
+
+	<screen name="MenuTemplate">
+		<panel name="PigTemplate"/>
+		<panel name="DescriptionTemplate"/>
+		<widget source="menu" render="Listbox" position="1040,140" size="1480,1200" transparent="1" scrollbarMode="showOnDemand">
+			<convert type="TemplatedMultiContent">
+				{"template": [ MultiContentEntryText(pos = (80,0), size = (1380,80), flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER, text = 0) ],
+					"fonts": [gFont("Regular",48)],
+					"itemHeight": 80
+				}
+			</convert>
+		</widget>
+	</screen>
+
+	<!-- Button Templates -->
+
+	<screen name="ButtonRed"><!-- used by some plugins -->
+		<widget objectTypes="key_red,Label,Button" name="key_red" position="299,1373" size="547,51" backgroundColor="black" zPosition="2" transparent="1" foregroundColor="buttonred" font="Regular;45" halign="left"/>
+		<widget objectTypes="key_red,StaticText" source="key_red" render="Label" position="299,1373" size="547,51" backgroundColor="darkgrey" zPosition="2" transparent="1" foregroundColor="buttonred" font="Regular;45" halign="left"/>
+	</screen>
+
+	<screen name="ButtonGreen"><!-- used by some plugins -->
+		<widget objectTypes="key_green,Label,Button" name="key_green" position="869,1373" size="547,51" backgroundColor="black" zPosition="2" transparent="1" foregroundColor="buttongreen" font="Regular;45" halign="left"/>
+		<widget objectTypes="key_green,StaticText" source="key_green" render="Label" position="869,1373" size="547,51" backgroundColor="darkgrey" zPosition="2" transparent="1" foregroundColor="buttongreen" font="Regular;45" halign="left"/>
+	</screen>
+
+	<screen name="ButtonYellow"><!-- used by some plugins -->
+		<widget objectTypes="key_yellow,Label,Button" name="key_yellow" position="1440,1373" size="547,51" backgroundColor="black" zPosition="2" transparent="1" foregroundColor="buttonyellow" font="Regular;45" halign="left"/>
+		<widget objectTypes="key_yellow,StaticText" source="key_yellow" render="Label" position="1440,1373" size="547,51" backgroundColor="darkgrey" zPosition="2" transparent="1" foregroundColor="buttonyellow" font="Regular;45" halign="left"/>
+	</screen>
+
+	<screen name="ButtonBlue"><!-- used by some plugins -->
+		<widget objectTypes="key_blue,Label,Button" name="key_blue" position="2011,1373" size="547,51" backgroundColor="black" zPosition="2" transparent="1" foregroundColor="buttonblue" font="Regular;45" halign="left"/>
+		<widget objectTypes="key_blue,StaticText" source="key_blue" render="Label" position="2011,1373" size="547,51" backgroundColor="darkgrey" zPosition="2" transparent="1" foregroundColor="buttonblue" font="Regular;45" halign="left"/>
+	</screen>
+
+	<!-- Button Bar Template -->
+	<screen name="ColorButtonTemplate">
+		<widget addon="ColorButtonsSequence" connection="key_red,key_green,key_yellow,key_blue" 
+			textColors="key_red:buttonred,key_green:buttongreen,key_yellow:buttonyellow,key_blue:buttonblue" 
+			position="299,e-67" size="e-299,56" font="Regular;44" backgroundColor="darkgrey" transparent="1" alignment="left" zPosition="2" spacing="13" />
+	</screen>
+	<screen name="ActionButtonTemplate">
+		<widget addon="ButtonSequence" connection="key_help,key_info,key_menu,key_play,key_text,VKeyIcon,key_previous,key_left,key_right,key_next,key_0" 
+		pixmaps="key_previous:buttons/key_prev.png,key_left:buttons/left.png,key_help:buttons/key_help.png,key_info:buttons/key_info.png,key_menu:buttons/key_menu.png,key_play:buttons/key_right.png,key_text:buttons/key_text.png,VKeyIcon:buttons/key_text.png,key_0:buttons/key_0.png,key_right:buttons/right.png,key_next:buttons/key_next.png" 
+			position="13,e-65" size="283,51" spacing="0" transparent="1" zPosition="10"/>
+	</screen>
+	<screen name="ButtonTemplate">
+		<panel name="ColorButtonTemplate"/>
+		<panel name="ActionButtonTemplate"/>
+	</screen>
+
+	<!-- screen name="ButtonTemplate">
+		<widget addon="ScreenButtonsBar" 
+			connection="key_red,key_green,key_yellow,key_blue,key_help,key_info,key_menu,key_play,key_text,VKeyIcon,key_previous,key_left,key_right,key_next,key_0" 
+			pixmaps="key_previous:buttons/key_prev.png,key_left:buttons/left.png,key_help:buttons/key_help.png,key_info:buttons/key_info.png,key_menu:buttons/key_menu.png,key_play:buttons/key_right.png,key_text:buttons/key_text.png,VKeyIcon:buttons/key_text.png,key_0:buttons/key_0.png,key_right:buttons/right.png,key_next:buttons/key_next.png" 
+			textColors="key_red:buttonred,key_green:buttongreen,key_yellow:buttonyellow,key_blue:buttonblue"
+			position="27,1375" 
+			size="e-53,51" 
+			backgroundColor="darkgrey" 
+			transparent="1"
+			font="Regular;44" 
+			actionButtonsPos="farRight" 
+			zPosition="1000"
+			spacingAction="0"
+			spacingColor="80" 
+			spacingPixmapText="13" 
+			spacingActionColorGroups="7"
+		/>
+	</screen -->
+
+	<screen name="KeyMenuTemplate">
+		 <ePixmap pixmap="buttons/key_menu.png" alphatest="blend" position="152,1375" size="69,51" zPosition="2"/>
+	</screen>
+
+	<screen name="KeyInfoTemplate">
+		<ePixmap pixmap="buttons/key_info.png" alphatest="blend" position="223,1375" size="69,51" zPosition="2"/>
+	</screen>
+
+	<screen name="KeyOkTemplate"><!-- only used in skin_plugins.xml -->
+		<ePixmap pixmap="buttons/key_ok.png" alphatest="blend" position="83,1375" size="69,51" zPosition="2"/>
+	</screen>
+
+	<screen name="KeyTextTemplate">
+		<ePixmap pixmap="buttons/key_text.png" alphatest="blend" position="13,1375" size="69,51" zPosition="2"/>
+	</screen>
+
+	<screen name="KeyTextTemplateBlue"><!-- only used in skin_plugins.xml, button apears in key_blue position -->
+		<ePixmap pixmap="buttons/key_text.png" alphatest="blend" position="2000,1376" size="69,51" zPosition="2"/>
+	</screen>
+
+	<screen name="CancelTemplate">
+		<ePixmap pixmap="buttons/red.png" position="256,1376" size="45,45" alphatest="blend"/>
+		<widget name="canceltext" position="323,1373" zPosition="2" size="493,51" font="Regular;48" halign="left" backgroundColor="background" transparent="1"/>
+	</screen>
+
+	<screen name="OKTemplate">
+		<ePixmap pixmap="buttons/green.png" position="837,1376" size="45,45" alphatest="blend"/>
+		<widget name="oktext" position="904,1373" zPosition="2" size="493,51" font="Regular;45" halign="left" backgroundColor="background" transparent="1"/>
+	</screen>
+
+	<screen name="CancelOKTemplate">
+		<panel name="CancelTemplate"/>
+		<panel name="OKTemplate"/>
+	</screen>
+
+	<screen name="KeyMenuInfoTemplate">
+		<panel name="KeyMenuTemplate"/>
+		<panel name="KeyInfoTemplate"/>
+	</screen>
+
+<!-- Config and list template. Some people use "config" and others use "list" -->
+	<screen name="ConfigTemplate">
+		<widget name="config" conditional="config" position="1040,164" size="1480,1140" itemHeight="60" font="Regular;44" scrollbarMode="showOnDemand"/>
+		<widget name="list" conditional="list" position="1040,164" size="1480,1140" itemHeight="60" font="Regular;44" scrollbarMode="showOnDemand"/>
+		<!-- widget name="config" objectTypes="config,ConfigList" position="780,123" size="1110,855" itemHeight="45" font="Regular;33" scrollbarMode="showNever"/>
+		<widget name="list" objectTypes="config,ConfigList" position="1040,164" size="1480,1140" itemHeight="60" font="Regular;44" scrollbarMode="showNever"/>
+		<widget name="config" objectTypesInverted="config,ConfigList" position="1040,164" size="1480,1140" itemHeight="60" font="Regular;44" scrollbarMode="showOnDemand"/>
+		<widget name="list" objectTypesInverted="config,ConfigList" position="1040,164" size="1480,1140" itemHeight="60" font="Regular;44" scrollbarMode="showOnDemand"/>
+		<widget addon="Pager" connection="config" objectTypes="config,ConfigList" position="1040,1313" size="1480,33" spacing="40" transparent="1" backgroundColor="background" />
+		<widget addon="Pager" connection="list" objectTypes="list,ConfigList" position="780,985" size="1110,25" spacing="30" transparent="1" backgroundColor="background" / -->
+	</screen>
+
+	<screen name="DescriptionTemplate">
+		<widget name="description" objectTypes="description,Button,Label" position="40,760" size="960,400" font="Regular;43" valign="top" halign="block"/>
+		<widget source="description" render="Label" objectTypes="description,StaticText" position="40,760" size="960,400" font="Regular;43" valign="top" halign="block"/>
+	</screen>
+
+	<screen name="FootnoteTemplate">
+		<widget name="footnote" objectTypes="footnote,Button,Label" position="40,1173" zPosition="1000" size="960,133" font="Regular;43" valign="top" halign="block"/>
+		<widget source="footnote" render="Label" objectTypes="footnote,StaticText" position="40,1173" zPosition="1" size="960,133" font="Regular;43" valign="top" halign="block"/>
+	</screen>
+
+<!-- Setup Panel PIG template -->
+	<screen name="SetupPanelPIG">
+		<panel name="PigTemplate"/>
+		<panel name="ConfigTemplate"/>
+		<panel name="DescriptionTemplate"/>
+		<panel name="FootnoteTemplate"/>
+		<widget name="HelpWindow" conditional="HelpWindow" pixmap="icons/vkey_icon.png" position="4,413" zPosition="1" size="1,1" transparent="1" alphatest="on"/>
+		<widget name="introduction" conditional="introduction" position="0,0" size="0,0"/><!-- Hidden -->
+		<!-- VKeyIcon is imported with buttonbar -->
+	</screen>
+
+<!-- Infobar Template -->
+
+	<screen name="InfoBarTemplate">
+		<widget source="session.CurrentService" render="Picon" position="40,1256" size="256,153" alphatest="blend" backgroundColor="secondBG" transparent="1" zPosition="1">
+			<convert type="ServiceName">Reference</convert>
+		</widget>
+		<widget source="session.CurrentService" render="ChannelNumber" borderWidth="3" position="347,1173" size="200,100" backgroundColor="secondBG" transparent="1" zPosition="1" foregroundColor="foreground" font="Regular;53" valign="center" halign="left"/>
+		<widget source="session.CurrentService" render="Label" borderWidth="3" position="516,1173" size="1032,100" backgroundColor="secondBG" transparent="1" zPosition="1" foregroundColor="foreground" font="Regular;53" valign="center" halign="left">
+			<convert type="ServiceName">NameOnly</convert>
+		</widget>
+		<widget source="global.CurrentTime" render="Label" borderWidth="3" position="40,1147" size="720,43" backgroundColor="secondBG" noWrap="1" transparent="1" zPosition="1" foregroundColor="grey" font="Regular;35" valign="center" halign="left">
+			<convert type="ClockToText">Date</convert>
+		</widget>
+		<widget source="global.CurrentTime" render="Label" borderWidth="3" position="40,1189" size="280,67" backgroundColor="secondBG" noWrap="1" transparent="1" zPosition="1" foregroundColor="foreground" font="Regular;52" valign="center" halign="left">
+			<convert type="ClockToText">Format:%H:%M</convert>
+		</widget>
+		<eLabel position="179,1196" size="13,44" text=":" transparent="1" borderWidth="3" font="Regular;36" backgroundColor="secondBG" foregroundColor="foreground" valign="center" halign="center"/>
+		<widget source="global.CurrentTime" render="Label" borderWidth="3" position="192,1196" size="69,44" backgroundColor="secondBG" noWrap="1" transparent="1" zPosition="1" foregroundColor="foreground" font="Regular;36" valign="center" halign="left">
+			<convert type="ClockToText">Format:%S</convert>
+		</widget>
+		<widget source="session.RecordState" render="Pixmap" pixmap="buttons/rec.png" position="273,1203" size="40,40" zPosition="3" alphatest="blend">
+			<convert type="ConditionalShowHide"/>
+		</widget>
+		<widget source="session.CurrentService" render="Label" borderWidth="3" position="927,1127" size="1260,73" backgroundColor="secondBG" transparent="1" zPosition="1" foregroundColor="grey" font="Regular;33" valign="center" halign="right">
+			<convert type="CryptoInfo">VerboseInfo</convert>
+		</widget>
+		<widget source="session.Event_Now" render="Label" position="347,1304" size="140,60" backgroundColor="secondBG" transparent="1" zPosition="1" foregroundColor="foreground" font="Regular;48" halign="left">
+			<convert type="EventTime">StartTime</convert>
+			<convert type="ClockToText">Format:%H:%M</convert>
+		</widget>
+		<widget source="session.Event_Now" render="Label" position="516,1304" size="1429,60" backgroundColor="secondBG" transparent="1" zPosition="1" foregroundColor="foreground" noWrap="1" font="Regular;48" halign="left">
+			<convert type="EventName">Name</convert>
+		</widget>
+		<widget source="session.Event_Now" render="Label" position="1907,1304" size="280,60" backgroundColor="secondBG" transparent="1" zPosition="1" foregroundColor="foreground" font="Regular;48" halign="right">
+			<convert type="EventTime">Remaining</convert>
+			<convert type="RemainingToText">InMinutes</convert>
+		</widget>
+		<widget source="session.Event_Next" render="Label" position="347,1364" size="140,60" backgroundColor="secondBG" transparent="1" zPosition="1" foregroundColor="grey" font="Regular;48" halign="left">
+			<convert type="EventTime">StartTime</convert>
+			<convert type="ClockToText">Format:%H:%M</convert>
+		</widget>
+		<widget source="session.Event_Next" render="Label" position="516,1364" size="1429,60" backgroundColor="secondBG" transparent="1" zPosition="1" foregroundColor="grey" noWrap="1" font="Regular;48" halign="left">
+			<convert type="EventName">Name</convert>
+		</widget>
+		<widget source="session.Event_Next" render="Label" position="1907,1364" size="280,60" backgroundColor="secondBG" transparent="1" zPosition="1" foregroundColor="grey" font="Regular;48" halign="right">
+			<convert type="EventTime">Duration</convert>
+			<convert type="ClockToText">InMinutes</convert>
+		</widget>
+		<widget source="session.Event_Now" render="Progress" pixmap="infobar/pbar.png" position="347,1269" size="1840,16" backgroundColor="un33333a" transparent="0" zPosition="2" borderWidth="0">
+			<convert type="EventTime">Progress</convert>
+		</widget>
+
+		<widget addon="ServiceInfoBar" connection="session" position="1267,1200" size="913,60" zPosition="110" backgroundColor="background" transparent="1" 
+			elements="currentCrypto,crypt,videoRes,audioChannels,audioCodec,videoCodec,txt,subtitletrack,subservices,gamma,hbbtv,stream,updateStable,updateUnstable" 
+			pixmaps="crypt:infobar/icon_crypted.png,IS_CRYPT:infobar/icon_crypted.png,IS_CRYPT_CSA:infobar/icon_crypted_csa.png,IS_HD:infobar/icon_hd.png,IS_4K:infobar/icon_4k.png,IS_SD:infobar/icon_sd.png,IS_HDR:infobar/icon_hdr.png,IS_HDR10:infobar/icon_hdr10.png,IS_HLG:infobar/icon_hlg.png,stream:infobar/icon_clientsstreaming.png,subtitletrack:infobar/icon_subtitles.png,txt:infobar/icon_teletext.png,hbbtv:infobar/icon_hbbtv.png,subservices:infobar/icon_subservices.png,updateStable:infobar/icon_update-stable.png,updateUnstable:infobar/icon_update-unstable.png"
+			audioCodecIconPath="infobar"
+			videoCodecIconPath="infobar"
+			audioChannelsIconPath="infobar"
+			alignment="right" 
+			spacing="9" 
+			autoresizeMode="condensed" 
+			separatorLineColor="transpDark" separatorLineThickness="1" 
+			font="Regular;53" foregroundColor="green" />
+
+		<widget render="VideoSize" source="session.CurrentService" position="2273,1257" size="220,40" backgroundColor="secondBG" font="Regular;37" foregroundColor="foreground" halign="left" transparent="1" zPosition="1"/>
+		<widget source="session.FrontendStatus" render="Label" position="2273,1313" size="149,44" backgroundColor="secondBG" transparent="1" zPosition="1" foregroundColor="foreground" font="Regular;37">
+			<convert type="FrontendInfo">SNRdB</convert>
+			<convert type="ConditionalShowHide"/>
+		</widget>
+		<widget source="session.FrontendInfo" render="Label" position="2273,1200" size="267,40" borderWidth="1" borderColor="black" zPosition="1" backgroundColor="transpBlack" transparent="1" halign="left" font="Regular;40">
+			<convert type="FrontendInfo">STRING</convert>
+		</widget>
+		<widget source="session.CurrentService" render="Label" position="2273,1369" size="220,44" backgroundColor="secondBG" transparent="1" zPosition="1" font="Regular;37">
+			<convert type="ServiceOrbitalPosition"/>
+		</widget>
+		<widget source="session.CurrentService" render="Label" position="2273,1141" size="240,33" borderWidth="1" borderColor="black" backgroundColor="transpBlack" zPosition="1" font="Regular;29" transparent="1">
+			<convert type="RotorPosition"/>
+		</widget>
+	</screen>
+
+	<!-- DownloadBar (used by ABM, CrossEPG, etc -->
+	<screen name="DownloadBar">
+		<widget name="action" position="13,7" size="867,60" font="Regular;45" backgroundColor="transpBlack"/>
+		<widget name="status" position="933,7" size="867,60" font="Regular;45" halign="center" backgroundColor="transpBlack"/>
+		<widget source="Frontend" conditional="Frontend" render="Pixmap" pixmap="icons/lock_on.png" position="1857,7" size="51,48" alphatest="blend">
+			<convert type="FrontendInfo">LOCK</convert>
+			<convert type="ConditionalShowHide"/>
+		</widget>
+		<widget source="Frontend" conditional="Frontend" render="Pixmap" pixmap="icons/lock_off.png" position="1857,7" size="51,48" alphatest="blend">
+			<convert type="FrontendInfo">LOCK</convert>
+			<convert type="ConditionalShowHide">Invert</convert>
+		</widget>
+		<widget name="tuner_text" conditional="tuner_text" position="1911,7" size="47,60" font="Regular;45" halign="center" backgroundColor="transpBlack"/>
+		<widget source="Frontend" conditional="Frontend" render="Label" position="1960,7" size="173,60" font="Regular;45" halign="left" backgroundColor="transpBlack">
+			<convert type="FrontendInfo">SNRdB</convert>
+		</widget>
+		<widget source="progress_text" render="Label" position="2160,7" size="173,60" font="Regular;45" halign="right" backgroundColor="transpBlack">
+			<convert type="ProgressToText">InText</convert>
+		</widget>
+		<widget source="progress_text" render="Label" position="2373,7" size="147,60" font="Regular;45" halign="left" backgroundColor="transpBlack">
+			<convert type="ProgressToText">InPercent</convert>
+		</widget>
+	</screen>
+
+	<!-- Config menu template -->
+	<screen name="ConfigMenuTemplate" position="fill" flags="wfNoBorder">
+		<widget name="menu" position="1040,133" size="1480,1200" itemHeight="60" font="Regular;44" scrollbarMode="showOnDemand"/><!-- Should be identical to ConfigPanel -->
+	</screen>
+
+	<!-- Feeds status template -->
+	<screen name="FeedsStatusTemplate" position="fill" flags="wfNoBorder">
+		<widget name="feedStatusMSG" conditional="feedStatusMSG" position="9,1053" size="953,60" font="Regular;44" zPosition="2" foregroundColor="secondFG" halign="center"/>
+		<widget name="tl_off" pixmap="icons/aoff.png" position="467,1133" size="48,129" alphatest="on"/>
+		<widget name="tl_red" pixmap="icons/ared.png" position="467,1133" size="48,129" alphatest="on"/>
+		<widget name="tl_yellow" pixmap="icons/ayellow.png" position="467,1133" size="48,129" alphatest="on"/>
+		<widget name="tl_green" pixmap="icons/agreen.png" position="467,1133" size="48,129" alphatest="on"/>
+	</screen>
+
+	<!-- Slider template -->
+	<screen name="SliderTemplate" position="fill" flags="wfNoBorder">
+		<widget name="slider" position="1040,587" size="1480,27" zPosition="2" transparent="1"/>
+		<widget name="activityslider" position="40,1365" size="2480,8" pixmap="window/slider100.png" transparent="1" zPosition="2"/>
+	</screen>
+
+	<!-- Remote control templates -->
+	<screen name="RcPanel">
+		<widget name="rc" pixmap="rc.png" position="0,0" zPosition="10" size="205,667" alphatest="blend" backgroundColor="black" transparent="1" />
+		<widget name="arrowdown" conditional="arrowdown" pixmap="arrowdown.png" position="-133,-133" size="49,93" zPosition="11" alphatest="blend"/><!-- belongs to old HelpMenu -->
+		<widget name="arrowdown2" conditional="arrowdown" pixmap="arrowdown.png" position="-133,-133" size="49,93" zPosition="11" alphatest="blend"/><!-- belongs to old HelpMenu -->
+		<widget name="arrowup" pixmap="arrowup.png" conditional="arrowdown" position="-133,-133" size="49,93" zPosition="11" alphatest="blend"/><!-- belongs to old HelpMenu -->
+		<widget name="arrowup2" conditional="arrowdown" pixmap="arrowup.png" position="-133,-133" size="49,93" zPosition="11" alphatest="blend"/><!-- belongs to old HelpMenu -->
+		<widget alphatest="blend" name="indicatorU0" conditional="indicatorU0" pixmap="yellow_circle23x23.png" position="0,0" offset="15,15" size="31,31" zPosition="11" scale="1"/>
+		<widget alphatest="blend" name="indicatorU1" conditional="indicatorU0" pixmap="yellow_circle23x23.png" position="0,0" offset="15,15" size="31,31" zPosition="11" scale="1"/>
+		<widget alphatest="blend" name="indicatorU2" conditional="indicatorU0" pixmap="yellow_circle23x23.png" position="0,0" offset="15,15" size="31,31" zPosition="11" scale="1"/>
+		<widget alphatest="blend" name="indicatorU3" conditional="indicatorU0" pixmap="yellow_circle23x23.png" position="0,0" offset="15,15" size="31,31" zPosition="11" scale="1"/>
+		<widget alphatest="blend" name="indicatorU4" conditional="indicatorU0" pixmap="yellow_circle23x23.png" position="0,0" offset="15,15" size="31,31" zPosition="11" scale="1"/>
+		<widget alphatest="blend" name="indicatorU5" conditional="indicatorU0" pixmap="yellow_circle23x23.png" position="0,0" offset="15,15" size="31,31" zPosition="11" scale="1"/>
+		<widget alphatest="blend" name="indicatorU6" conditional="indicatorU0" pixmap="yellow_circle23x23.png" position="0,0" offset="15,15" size="31,31" zPosition="11" scale="1"/>
+		<widget alphatest="blend" name="indicatorU7" conditional="indicatorU0" pixmap="yellow_circle23x23.png" position="0,0" offset="15,15" size="31,31" zPosition="11" scale="1"/>
+		<widget alphatest="blend" name="indicatorU8" conditional="indicatorU0" pixmap="yellow_circle23x23.png" position="0,0" offset="15,15" size="31,31" zPosition="11" scale="1"/>
+		<widget alphatest="blend" name="indicatorU9" conditional="indicatorU0" pixmap="yellow_circle23x23.png" position="0,0" offset="15,15" size="31,31" zPosition="11" scale="1"/>
+		<widget alphatest="blend" name="indicatorU10" conditional="indicatorU0" pixmap="yellow_circle23x23.png" position="0,0" offset="15,15" size="31,31" zPosition="11" scale="1"/>
+		<widget alphatest="blend" name="indicatorU11" conditional="indicatorU0" pixmap="yellow_circle23x23.png" position="0,0" offset="15,15" size="31,31" zPosition="11" scale="1"/>
+		<widget alphatest="blend" name="indicatorU12" conditional="indicatorU0" pixmap="yellow_circle23x23.png" position="0,0" offset="15,15" size="31,31" zPosition="11" scale="1"/>
+		<widget alphatest="blend" name="indicatorU13" conditional="indicatorU0" pixmap="yellow_circle23x23.png" position="0,0" offset="15,15" size="31,31" zPosition="11" scale="1"/>
+		<widget alphatest="blend" name="indicatorU14" conditional="indicatorU0" pixmap="yellow_circle23x23.png" position="0,0" offset="15,15" size="31,31" zPosition="11" scale="1"/>
+		<widget alphatest="blend" name="indicatorU15" conditional="indicatorU0" pixmap="yellow_circle23x23.png" position="0,0" offset="15,15" size="31,31" zPosition="11" scale="1"/>
+		<widget alphatest="blend" name="indicatorL0" conditional="indicatorU0" pixmap="yellow_circle23x23.png" position="0,0" offset="15,15" size="31,31" zPosition="11" scale="1"/>
+		<widget alphatest="blend" name="indicatorL1" conditional="indicatorU0" pixmap="yellow_circle23x23.png" position="0,0" offset="15,15" size="31,31" zPosition="11" scale="1"/>
+		<widget alphatest="blend" name="indicatorL2" conditional="indicatorU0" pixmap="yellow_circle23x23.png" position="0,0" offset="15,15" size="31,31" zPosition="11" scale="1"/>
+		<widget alphatest="blend" name="indicatorL3" conditional="indicatorU0" pixmap="yellow_circle23x23.png" position="0,0" offset="15,15" size="31,31" zPosition="11" scale="1"/>
+		<widget alphatest="blend" name="indicatorL4" conditional="indicatorU0" pixmap="yellow_circle23x23.png" position="0,0" offset="15,15" size="31,31" zPosition="11" scale="1"/>
+		<widget alphatest="blend" name="indicatorL5" conditional="indicatorU0" pixmap="yellow_circle23x23.png" position="0,0" offset="15,15" size="31,31" zPosition="11" scale="1"/>
+		<widget alphatest="blend" name="indicatorL6" conditional="indicatorU0" pixmap="yellow_circle23x23.png" position="0,0" offset="15,15" size="31,31" zPosition="11" scale="1"/>
+		<widget alphatest="blend" name="indicatorL7" conditional="indicatorU0" pixmap="yellow_circle23x23.png" position="0,0" offset="15,15" size="31,31" zPosition="11" scale="1"/>
+		<widget alphatest="blend" name="indicatorL8" conditional="indicatorU0" pixmap="yellow_circle23x23.png" position="0,0" offset="15,15" size="31,31" zPosition="11" scale="1"/>
+		<widget alphatest="blend" name="indicatorL9" conditional="indicatorU0" pixmap="yellow_circle23x23.png" position="0,0" offset="15,15" size="31,31" zPosition="11" scale="1"/>
+		<widget alphatest="blend" name="indicatorL10" conditional="indicatorU0" pixmap="yellow_circle23x23.png" position="0,0" offset="15,15" size="31,31" zPosition="11" scale="1"/>
+		<widget alphatest="blend" name="indicatorL11" conditional="indicatorU0" pixmap="yellow_circle23x23.png" position="0,0" offset="15,15" size="31,31" zPosition="11" scale="1"/>
+		<widget alphatest="blend" name="indicatorL12" conditional="indicatorU0" pixmap="yellow_circle23x23.png" position="0,0" offset="15,15" size="31,31" zPosition="11" scale="1"/>
+		<widget alphatest="blend" name="indicatorL13" conditional="indicatorU0" pixmap="yellow_circle23x23.png" position="0,0" offset="15,15" size="31,31" zPosition="11" scale="1"/>
+		<widget alphatest="blend" name="indicatorL14" conditional="indicatorU0" pixmap="yellow_circle23x23.png" position="0,0" offset="15,15" size="31,31" zPosition="11" scale="1"/>
+		<widget alphatest="blend" name="indicatorL15" conditional="indicatorU0" pixmap="yellow_circle23x23.png" position="0,0" offset="15,15" size="31,31" zPosition="11" scale="1"/>
+	</screen>
+</skin>

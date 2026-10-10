@@ -20,6 +20,17 @@ src/skins/1440/NOVUM_WQHD_Slim/SkinDesign/Makefile
 src/skins/1440/NOVUM_WQHD_Slim/spinner/Makefile
 src/skins/1440/NOVUM_WQHD_Slim/WeatherIcons/Makefile
 
+src/skins/1440/Simple_Fourteen_Forty/Makefile
+src/skins/1440/Simple_Fourteen_Forty/border/Makefile
+src/skins/1440/Simple_Fourteen_Forty/buttons/Makefile
+src/skins/1440/Simple_Fourteen_Forty/dvr/Makefile
+src/skins/1440/Simple_Fourteen_Forty/epg/Makefile
+src/skins/1440/Simple_Fourteen_Forty/extensions/Makefile
+src/skins/1440/Simple_Fourteen_Forty/fonts/Makefile
+src/skins/1440/Simple_Fourteen_Forty/icons/Makefile
+src/skins/1440/Simple_Fourteen_Forty/infobar/Makefile
+src/skins/1440/Simple_Fourteen_Forty/window/Makefile
+
 src/skins/1440/YouViX-Blue-Mod-1440/Makefile
 src/skins/1440/YouViX-Blue-Mod-1440/audioicon/Makefile
 src/skins/1440/YouViX-Blue-Mod-1440/buttons/Makefile

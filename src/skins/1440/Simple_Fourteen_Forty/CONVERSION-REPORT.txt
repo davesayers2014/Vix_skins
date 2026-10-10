@@ -1,0 +1,46 @@
+Simple_Ten_Eighty -> Simple_Fourteen_Forty  (source 1920 wide, scale x4/3 = 1.3333)
+
+Folders written to /usr/share/enigma2:
+  Simple_Ten_Eighty -> Simple_Fourteen_Forty  (full folder)
+
+Files: {'xml': 4, 'images': 392, 'copied': 4}
+
+Notes:
+  applet lines scaled  x26
+  pixel by name: spacingAction  x1
+  pixel by name: spacingActionColorGroups  x1
+  pixel by name: spacingColor  x1
+  pixel by name: spacingPixmapText  x1
+  Layout expressions converted:
+    17*45 -> 17*60  x2
+    8% -> 8%  x4
+    c+15 -> c+20  x1
+    c-109 -> c-145  x2
+    c-112 -> c-149  x1
+    c-15 -> c-20  x1
+    c-262 -> c-349  x1
+    c-300 -> c-400  x2
+    c-384 -> c-512  x1
+    c-450 -> c-600  x1
+    c-885 -> c-1180  x1
+    e-120 -> e-160  x1
+    e-170 -> e-227  x1
+    e-180 -> e-240  x1
+    e-224 -> e-299  x1
+    e-255 -> e-340  x1
+    e-285 -> e-380  x1
+    e-30 -> e-40  x1
+    e-300 -> e-400  x1
+    e-340 -> e-453  x5
+    e-341 -> e-455  x2
+    e-40 -> e-53  x1
+    e-42-150 -> e-56-200  x1
+    e-480 -> e-640  x1
+    e-49 -> e-65  x1
+    e-50 -> e-67  x2
+    e-60 -> e-80  x3
+    e-85 -> e-113  x3
+    e-868 -> e-1157  x1
+    e-869 -> e-1159  x1
+    e//42*42 -> e//56*56  x4
+    e//50*50 -> e//67*67  x1

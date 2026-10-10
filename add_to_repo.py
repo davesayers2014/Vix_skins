@@ -7,7 +7,8 @@ Usage:
   python3 add_to_repo.py --repo-dir src/skins/1440  CONVERTED [CONVERTED ...]
 
 Each CONVERTED is a folder holding the box layout written by wqhd_convert.py
-(usr/share/enigma2/<Skin>/..., usr/share/meta/skin_<Skin>.xml).
+(usr/share/enigma2/<Skin>/..., usr/share/meta/skin_<Skin>.xml), or a folder of such
+folders (e.g. a downloaded set of workflow artifacts).
 
 Afterwards the script rewrites:
   <repo-dir>/Makefile.am                 SUBDIRS = every skin folder in <repo-dir>
@@ -44,6 +45,22 @@ def write_makefiles(folder, installdir):
         if exts:
             lines.append("dist_install_DATA = " + " ".join(f"*{e}" for e in exts))
         open(os.path.join(root, "Makefile.am"), "w").write("\n".join(lines).rstrip() + "\n")
+
+
+def find_roots(path):
+    """Folders holding usr/share/enigma2 at or below path (an artifact download may be
+    one skin unpacked directly, or one sub-folder per skin)."""
+    roots = []
+    for root, dirs, _ in os.walk(path):
+        depth = os.path.relpath(root, path).count(os.sep)
+        if os.path.isdir(os.path.join(root, "usr", "share", "enigma2")):
+            roots.append(root)
+            dirs[:] = []
+        elif depth >= 2:
+            dirs[:] = []
+        else:
+            dirs.sort()
+    return roots
 
 
 def add(converted, repo_dir):
@@ -116,7 +133,10 @@ def main():
     ap.add_argument("converted", nargs="+")
     a = ap.parse_args()
     os.makedirs(a.repo_dir, exist_ok=True)
-    for c in a.converted:
+    roots = [r for c in a.converted for r in find_roots(c)]
+    if not roots:
+        raise SystemExit(f"No converted skins (usr/share/enigma2/...) found in: {' '.join(a.converted)}")
+    for c in roots:
         print(f"{c}:")
         add(c, a.repo_dir)
     refresh_index(a.repo_dir)
@@ -124,3 +144,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+  

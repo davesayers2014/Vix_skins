@@ -1,0 +1,44 @@
+NOVUM_FHD_Slim -> NOVUM_WQHD_Slim  (source 1920 wide, scale x4/3 = 1.3333)
+
+Folders written to /usr/share/enigma2:
+  NOVUM_FHD_Slim -> NOVUM_WQHD_Slim  (full folder)
+  myNOVUM_FHD2 -> myNOVUM_WQHD2  (only the files it uses)
+
+Files: {'images': 523, 'xml': 1, 'copied': 4}
+
+Notes:
+  applet lines scaled  x13
+  pixel by name: CoolBarHPos  x8
+  pixel by name: CoolBarHigh  x7
+  pixel by name: CoolBarPos  x8
+  pixel by name: CoolBarSize  x8
+  pixel by name: CoolBarSizeSa  x1
+  pixel by name: CoolDateHPos  x1
+  pixel by name: CoolDatePos  x4
+  pixel by name: CoolDateSize  x3
+  pixel by name: CoolDateWidth  x1
+  pixel by name: CoolDurationPos  x7
+  pixel by name: CoolDurationSize  x4
+  pixel by name: CoolEventHPos  x7
+  pixel by name: CoolEventPos  x11
+  pixel by name: CoolEventSize  x10
+  pixel by name: CoolFolderSize  x1
+  pixel by name: CoolMoviePiconPos  x1
+  pixel by name: CoolMoviePiconSize  x1
+  pixel by name: CoolMoviePos  x1
+  pixel by name: CoolMovieSize  x1
+  pixel by name: CoolPico  x4
+  pixel by name: CoolPicoHPos  x1
+  pixel by name: CoolPicoPos  x3
+  pixel by name: CoolPiconHPos  x1
+  pixel by name: CoolPiconHeight  x1
+  pixel by name: CoolPiconPos  x1
+  pixel by name: CoolPiconWidth  x1
+  pixel by name: CoolProgressPos  x1
+  pixel by name: CoolServiceHPos  x7
+  pixel by name: CoolServicePos  x10
+  pixel by name: CoolServiceSize  x10
+  pixel by name: CoolTimeHPos  x7
+  pixel by name: CoolTimePos  x11
+  pixel by name: CoolTimeSize  x11
+  Layout expressions converted:

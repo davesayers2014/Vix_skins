@@ -1,5 +1,25 @@
 src/skins/1440/Makefile
 
+src/skins/1440/myNOVUM_WQHD2/Makefile
+src/skins/1440/myNOVUM_WQHD2/images/Makefile
+
+src/skins/1440/NOVUM_WQHD_Slim/Makefile
+src/skins/1440/NOVUM_WQHD_Slim/buttons/Makefile
+src/skins/1440/NOVUM_WQHD_Slim/countries/Makefile
+src/skins/1440/NOVUM_WQHD_Slim/epg/Makefile
+src/skins/1440/NOVUM_WQHD_Slim/extensions/Makefile
+src/skins/1440/NOVUM_WQHD_Slim/fonts/Makefile
+src/skins/1440/NOVUM_WQHD_Slim/icons/Makefile
+src/skins/1440/NOVUM_WQHD_Slim/images/Makefile
+src/skins/1440/NOVUM_WQHD_Slim/images/pvrstate/Makefile
+src/skins/1440/NOVUM_WQHD_Slim/images/slider/Makefile
+src/skins/1440/NOVUM_WQHD_Slim/menu/Makefile
+src/skins/1440/NOVUM_WQHD_Slim/meta/Makefile
+src/skins/1440/NOVUM_WQHD_Slim/mmp/Makefile
+src/skins/1440/NOVUM_WQHD_Slim/SkinDesign/Makefile
+src/skins/1440/NOVUM_WQHD_Slim/spinner/Makefile
+src/skins/1440/NOVUM_WQHD_Slim/WeatherIcons/Makefile
+
 src/skins/1440/YouViX-Blue-Mod-1440/Makefile
 src/skins/1440/YouViX-Blue-Mod-1440/audioicon/Makefile
 src/skins/1440/YouViX-Blue-Mod-1440/buttons/Makefile

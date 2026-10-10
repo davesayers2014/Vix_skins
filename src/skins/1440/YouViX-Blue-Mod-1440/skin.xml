@@ -1,0 +1,163 @@
+<skin>
+	<!-- WQHD (2560x1440) conversion of YouViX-Blue-Mod by wqhd_convert.py: geometry, fonts and graphics scaled x4/3 -->
+	<!--  Skin: YouViX-Blue by rossi2000 & simonsez  -->
+	<!--  SKIN FILE -->
+	<!--  This skin is OpenSource. Anyone can modify it and use it in other images.  -->
+	<!--  BUT DO NOT REMOVE OR CHANGE THIS HEADER !!!  -->
+	<!--  Do whatever you want with this skin, but don't tell it's yours, or your idea!  -->
+	<!--  Modding done by Orlandox 22.09.2026 -->
+
+	<!--  ## Head ##  -->
+
+	<output id="0">
+		<resolution xres="2560" yres="1440" bpp="32" />
+	</output>
+
+	<include filename="skin_YouViX_Mod_Templates.xml"/>
+	<include filename="skin_YouViX_Mod.xml"/>
+
+	<fonts>
+		<font name="Regular" filename="/usr/share/enigma2/YouViX-Blue-Mod-1440/fonts/LiberationSans-Regular.ttf" scale="100" />
+		<font name="youvix-b" filename="/usr/share/enigma2/YouViX-Blue-Mod-1440/fonts/youvix-b.ttf" scale="100" />
+		<font name="youvix-r" filename="/usr/share/enigma2/YouViX-Blue-Mod-1440/fonts/youvix-r.ttf" scale="100" />
+		<font name="youvix-s" filename="/usr/share/enigma2/YouViX-Blue-Mod-1440/fonts/youvix-r.ttf" scale="90" />
+		<font name="youvix-l" filename="/usr/share/enigma2/YouViX-Blue-Mod-1440/fonts/youvix-l.ttf" scale="100" />
+		<font name="Subtitlefont" filename="/usr/share/enigma2/YouViX-Blue-Mod-1440/fonts/youvix-r.ttf" scale="100" />
+		<font name="youvix-epg" filename="/usr/share/enigma2/YouViX-Blue-Mod-1440/fonts/youvix-l.ttf" scale="90" />
+		<font name="LCD" filename="/usr/share/enigma2/YouViX-Blue-Mod-1440/fonts/youvix-r.ttf" scale="100"/>
+		<font name="channelselectionservice" filename="/usr/share/enigma2/YouViX-Blue-Mod-1440/fonts/youvix-r.ttf" scale="90"/>
+		<font name="channelselectionevent" filename="/usr/share/enigma2/YouViX-Blue-Mod-1440/fonts/youvix-r.ttf" scale="85"/>
+		<font name="youvix-pin" filename="/usr/share/enigma2/YouViX-Blue-Mod-1440/fonts/LiberationSans-Regular.ttf" scale="100" />
+		<alias name="Body" font="youvix-r" size="43" height="67" />
+		<alias name="TextNormal" font="youvix-r" size="43" height="67" />
+		<alias name="ChoiceList" font="youvix-r" size="43" height="59" />
+		<alias name="FileList" font="youvix-r" size="37" height="51"/>
+		<alias name="PlayList" font="youvix-r" size="35" height="47"/>
+		<alias name="FileListMulti" font="youvix-r" size="43" height="67"/>
+		<alias name="PluginBrowser0" font="youvix-r" size="43" height="101"/>
+		<alias name="PluginBrowser1" font="youvix-r" size="35"/>
+		<alias name="ServiceInfo" font="youvix-r" size="43" height="67"/>
+		<alias name="SelectionList" font="youvix-r" size="43" height="59"/>
+		<alias name="VirtualKeyboard" font="youvix-r" size="45" height="91"/>
+		<alias name="VirtualKeyBoard" font="youvix-r" size="45" height="91"/>
+		<alias name="HelpMenuList" font="youvix-r" size="40" height="60"/>
+		<alias name="HelpMenuListExt0" font="youvix-r" size="43" height="100"/>
+		<alias name="HelpMenuListExt1" font="youvix-r" size="40"/>
+		<alias name="AutomaticVolumeAdjustmentListFont0" font="youvix-r" size="43"/>
+		<alias name="AutomaticVolumeAdjustmentListFont1" font="youvix-r" size="43"/>
+		<alias name="Dreamexplorer" font="youvix-r" size="39" height="60" />
+		<alias name="PlutoList" font="youvix-r" size="37" height="61" />
+		<alias name="FcZipArchiver" font="youvix-r" size="37" height="56"/>
+	</fonts>
+
+	<parameters>
+		<parameter name="FileListIcon" value="7,4,71,51"/>
+		<parameter name="FileListName" value="84,4,1333,67"/>
+		<parameter name="FileListMultiLock" value="5,5,47,47"/>
+		<parameter name="FileListMultiIcon" value="80,5,40,40"/>
+		<parameter name="FileListMultiName" value="147,4,1333,67"/>
+		<parameter name="ChoicelistIcon" value="4,0,81,59"/>
+		<parameter name="ChoicelistButtonIcon" value="4,0,81,59" />
+		<parameter name="ChoicelistDash" value="0,5,1400,60"/>
+		<parameter name="ChoicelistName" value="107,4,1400,59"/>
+		<parameter name="ChoicelistNameSingle" value="7,5,1400,59" />
+		<parameter name="PlayListIcon" value="8,7,33,33" />
+		<parameter name="PlayListName" value="40,1,760,40" />
+		<parameter name="PluginBrowserIcon" value="11,11,200,80"/>
+		<parameter name="PluginBrowserName" value="240,0,52"/>
+		<parameter name="PluginBrowserDescr" value="267,51,40"/>
+		<parameter name="PluginBrowserDownloadIcon" value="0,0,120,100"/>
+		<parameter name="PluginBrowserDownloadName" value="127,3,52"/>
+		<parameter name="PluginBrowserDownloadDescr" value="153,51,40"/>
+		<parameter name="ServiceInfo" value="0,0,600,60"/>
+		<parameter name="ServiceInfoLeft" value="0,0,573,51"/>
+		<parameter name="ServiceInfoRight" value="573,0,787,51"/>
+		<parameter name="ServiceInfoLeftColumnAlignment" value="*RT_HALIGN_LEFT"/>
+		<parameter name="ServiceInfoRightColumnAlignment" value="*RT_HALIGN_RIGHT"/>
+		<parameter name="SelectionListLock" value="0,7,71,47"/>
+		<parameter name="SelectionListLockOff" value="0,7,71,47"/>
+		<parameter name="SelectionListDescr" value="73,3,1200,59"/>
+		<parameter name="ConfigListSeperator" value="933"/>
+		<parameter name="ConfigListSlider" value="40,4"/>
+		<parameter name="VirtualKeyboard" value="91,91"/>
+		<parameter name="VirtualKeyBoard" value="91,91"/>
+		<parameter name="HelpMenuListHlp" value="0,0,1333,56"/>
+		<parameter name="HelpMenuListExtHlp0" value="0,0,1333,52"/>
+		<parameter name="HelpMenuListExtHlp1" value="0,56,1333,40"/>
+		<parameter name="AllowUserDatesAndTimes" value="1,1"/>
+		<parameter name="EPGSingleColumnScales" value="6.3,6.0,1.5"/>
+		<parameter name="WeatherPluginCity" value="7,0,800,67"/>
+		<parameter name="WeatherPluginDegreetype" value="827,0,107,67"/>
+		<parameter name="FrontendInfoColors" value="#0000FF00,#00FF0000,#007F7F7F"/>
+		<parameter name="AutomaticVolumeAdjustmentList" value="7,0,1200,60,0,1233,0,240,60,0"/>
+		<parameter name="TMDbListName" value="7,3,1867,60"/>
+		<parameter name="TMDbListFont" value="*youvix-r,43"/>
+		<parameter name="AboutColors" value="#003499cc"/> <!-- title text=lightcolour -->
+		<parameter name="FixedMenuColors" value="#00343333"/> <!-- deselected color=darkergrey -->
+		<parameter name="PlutoTvColors" value="#00ffffff,#003499cc"/>
+		<parameter name="FcFileListIcon" value="9,3,53,53"/>
+		<parameter name="FcFileListName" value="73,7,1207,67"/>
+		<parameter name="FcFileListMultiLock" value="5,1,48,48"/>
+		<parameter name="FcFileListMultiIcon" value="60,3,53,53"/>
+		<parameter name="FcFileListMultiName" value="127,5,1153,67"/>
+	</parameters>
+
+	<colors>
+		<color name="windowbackground" value="#AD000000"/>
+		<color name="background2" value="#51010101"/>
+		<color name="menubackground" value="#33000000"/>
+		<color name="menubackground2" value="#1A000000"/>
+		<color name="transparent" value="#ffffffff" />
+		<color name="red" value="#00d7361d" />
+		<color name="green" value="#00307e13" />
+		<color name="yellow" value="#00e6e600" />
+		<color name="white" value="#00ffffff" />
+		<color name="black" value="#00000000" />
+		<color name="bluetransparent" value="#08001e4b"/>
+		<color name="transpBlue" value="#2d001e4b"/>
+		<color name="lightgrey" value="#00d6d5d5" />
+		<color name="grey" value="#00b3b3b3" />
+		<color name="darkgrey" value="#00676565" />
+		<color name="darkergrey" value="#00343333" />
+		<color name="lightcolour" value="#003499cc" />
+		<color name="darkcolour" value="#001176ad" />
+		<color name="window-sel-bg" value="#00acacac" />
+		<color name="clockcolour" value="#0000f5b2" />
+		<color name="buttonred" value="#00ff0808" />
+		<color name="buttongreen" value="#0004c81b" />
+		<color name="buttonyellow" value="#00edf506" />
+		<color name="buttonblue" value="#00077cf5" />
+	</colors>
+
+	<windowstyle type="skinned" id="0">
+		<title offset="40,9" font="youvix-b;43" />
+		<color name="Background" color="menubackground" />
+		<color name="LabelForeground" color="white" />
+		<color name="ListboxBackground" color="menubackground" />
+		<color name="ListboxForeground" color="white" />
+		<color name="ListboxSelectedBackground" color="lightcolour" />
+		<color name="ListboxSelectedForeground" color="white" />
+		<color name="ListboxMarkedBackground" color="window-sel-bg" />
+		<color name="ListboxMarkedForeground" color="white" />
+		<color name="ListboxMarkedAndSelectedBackground" color="window-sel-bg" />
+		<color name="ListboxMarkedAndSelectedForeground" color="white" />
+		<color name="WindowTitleForeground" color="lightcolour" />
+		<color name="WindowTitleBackground" color="menubackground" />
+		<borderset name="bsWindow">
+			<pixmap pos="bpTopLeft" filename="screens/b_tl.png" />
+			<pixmap pos="bpTop" filename="screens/b_t.png" />
+			<pixmap pos="bpTopRight" filename="screens/b_tr.png" />
+			<pixmap pos="bpLeft" filename="screens/b_l.png" />
+			<pixmap pos="bpRight" filename="screens/b_r.png" />
+			<pixmap pos="bpBottomLeft" filename="screens/b_bl.png" />
+			<pixmap pos="bpBottom" filename="screens/b_b.png" />
+			<pixmap pos="bpBottomRight" filename="screens/b_br.png" />
+		</borderset>
+	</windowstyle>
+
+	<switchpixmap>
+		<pixmap name="menu_on" filename="icons/menu_on.png" />
+		<pixmap name="menu_off" filename="icons/menu_off.png" />
+	</switchpixmap>
+	
+</skin>

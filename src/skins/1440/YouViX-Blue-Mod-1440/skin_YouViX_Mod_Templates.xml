@@ -1,0 +1,1212 @@
+<skin>
+	<!--  Skin: YouViX by rossi2000 & simonsez  -->
+	<!--  TEMPLATES FILE -->
+	<!--  This skin is a Freeware. Everyone can modify and use it in other images.  -->
+	<!--  BUT DO NOT REMOVE OR CHANGE THIS HEADER !!!  -->
+	<!--  Do whatever you want with this skin, but don't tell it's yours, or your idea!  -->
+	<!--  Modding done by Orlandox 20.09.2026 -->
+
+	<!--  ## Head ##  -->
+
+	<!-- CHANNEL SELECTION TEMPLATES -->
+	<screen name="ChannelSelectionBouquetName">
+		<eLabel text=">" position="913,197" size="47,53" font="youvix-r;43" foregroundColor="darkcolour" backgroundColor="menubackground" valign="top" transparent="1" zPosition="1"/>
+		<widget source="Title" render="Label" position="953,197" size="1333,100" font="youvix-r;43" foregroundColor="darkcolour" backgroundColor="menubackground" valign="top" transparent="1" zPosition="1" />
+	</screen>
+	<screen name="ChannelSelectionOrbitalPosition">
+		<widget source="Service" render="Label" position="113,973" size="113,43" font="youvix-r;32" foregroundColor="white" backgroundColor="menubackground" transparent="1" valign="center" zPosition="1" >
+			<convert type="ServiceOrbitalPosition">
+			</convert>
+		</widget>
+	</screen>
+	<screen name="ChannelSelectionPiconProvider">
+		<widget source="session.CurrentService" render="Picon" position="133,1057" size="293,176" alphatest="blend" backgroundColor="transparent" transparent="1" zPosition="1">
+			<convert type="ServiceName">Provider</convert>
+		</widget>
+	</screen>
+	<screen name="ChannelSelectionPicon">
+		<widget source="Service" render="Picon" position="267,953" size="467,280" alphatest="blend" backgroundColor="transparent" transparent="1" zPosition="1">
+			<convert type="ServiceName">Reference</convert>
+		</widget>
+	</screen>
+
+	<!-- CROSSEPG TEMPLATES -->
+	<screen name="CrossEPGDownloadBar">
+		<ePixmap pixmap="screens/crossepgdownloadbox.png" position="center,1287" size="1067,153" zPosition="-1"/>
+		<widget name="action" position="center-67,1300" size="693,40" font="youvix-r;32" foregroundColor="white" backgroundColor="menubackground" halign="center" valign="center" transparent="1" />
+		<eLabel text="Käynnissä" position="1360,1293" size="427,40" font="youvix-r;29" foregroundColor="white" backgroundColor="menubackground" halign="right" valign="center" transparent="1"/>
+		<widget name="status" position="center-67,1347" size="693,40" font="youvix-r;29" foregroundColor="white" backgroundColor="menubackground" halign="center" valign="center" transparent="1" />
+		<widget source="Frontend" conditional="Frontend" render="Pixmap" pixmap="icons/lock_on.png" position="1647,1340" size="47,47" alphatest="blend" backgroundColor="menubackground">
+			<convert type="FrontendInfo">LOCK</convert>
+			<convert type="ConditionalShowHide"/>
+		</widget>
+		<widget source="Frontend" conditional="Frontend" render="Pixmap" pixmap="icons/lock_off.png" position="1647,1340" size="47,47" alphatest="blend" backgroundColor="menubackground">
+			<convert type="FrontendInfo">LOCK</convert>
+			<convert type="ConditionalShowHide">Invert</convert>
+		</widget>
+		<widget source="Frontend" conditional="Frontend" render="Label" position="1633,1344" size="173,43" font="youvix-r;29" halign="right" backgroundColor="menubackground" transparent="1">
+			<convert type="FrontendInfo">SNRdB</convert>
+		</widget>
+		<widget source="progress_text" render="Label" position="1640,1393" size="107,60" font="youvix-r;29" halign="left" backgroundColor="menubackground" transparent="1">
+			<convert type="ProgressToText">InText</convert>
+		</widget>
+		<widget source="progress_text" render="Label" position="1633,1393" size="173,60" font="youvix-r;29" halign="right" backgroundColor="menubackground" transparent="1">
+			<convert type="ProgressToText">InPercent</convert>
+		</widget>
+		<ePixmap position="center-67,1393" size="800,13" pixmap="selectionbars/activitysliderbackground.png" alphatest="blend" zPosition="-1"/> 
+		<widget name="progress" position="center-67,1393" size="800,13" pixmap="selectionbars/activityslider.png" transparent="1" zPosition="1"/>
+	</screen>
+
+	<!-- AUTOBOUQUETSMAKER TEMPLATE -->
+	<screen name="DownloadBar">
+		<ePixmap pixmap="screens/crossepgdownloadbox.png" position="center,1287" size="1067,153" zPosition="-1"/>
+		<widget name="action" position="center,1300" size="693,51" font="youvix-r;37" foregroundColor="white" backgroundColor="menubackground" halign="center" valign="center" transparent="1" />
+		<widget name="status" position="center,1360" size="693,48" font="youvix-r;35" foregroundColor="white" backgroundColor="menubackground" halign="center" valign="center" transparent="1" />
+		<widget source="Frontend" conditional="Frontend" render="Pixmap" pixmap="icons/lock_on.png" position="1647,1360" size="47,47" alphatest="blend" backgroundColor="menubackground">
+			<convert type="FrontendInfo">LOCK</convert>
+			<convert type="ConditionalShowHide"/>
+		</widget>
+		<widget source="Frontend" conditional="Frontend" render="Pixmap" pixmap="icons/lock_off.png" position="1647,1360" size="47,47" alphatest="blend" backgroundColor="menubackground">
+			<convert type="FrontendInfo">LOCK</convert>
+			<convert type="ConditionalShowHide">Invert</convert>
+		</widget>
+		<widget name="tuner_text" conditional="tuner_text" position="center+400,1300" size="133,51" font="youvix-r;37" foregroundColor="white" backgroundColor="menubackground" transparent="1" />
+		<widget source="Frontend" conditional="Frontend" render="Label" position="1633,1344" size="173,43" font="youvix-r;29" halign="right" backgroundColor="menubackground" transparent="1">
+			<convert type="FrontendInfo">SNRdB</convert>
+		</widget>
+	</screen>
+
+	<!-- EPG TEMPLATES -->
+	<screen name="EPGSelectionPicon">
+		<widget source="Service" render="Picon" position="347,1057" size="293,176" alphatest="blend" backgroundColor="transparent" transparent="1" zPosition="1">
+			<convert type="ServiceName">Reference</convert>
+		</widget>
+	</screen>
+
+	<!-- FEEDS STATUS TEMPLATE -->
+	<screen name="FeedsStatus">
+		<widget name="tl_off" pixmap="icons/tl_off.png" position="427,627" size="151,312" alphatest="blend" zPosition="1" />
+		<widget name="tl_red" pixmap="icons/tl_red.png" position="427,627" size="151,312" alphatest="blend" zPosition="1" />
+		<widget name="tl_yellow" pixmap="icons/tl_yellow.png" position="427,627" size="151,312" alphatest="blend" zPosition="1" />
+		<widget name="tl_green" pixmap="icons/tl_green.png" position="427,627" size="151,312" alphatest="blend" zPosition="1" />
+		<widget name="feedStatusMSG" conditional="feedStatusMSG" position="107,1133" size="787,51" font="youvix-r;32" foregroundColor="white" backgroundColor="menubackground" transparent="1" halign="center" valign="center" zPosition="1" />
+	</screen>
+
+	<!-- INFOBAR TEMPLATES -->
+	<screen name="InfobarClock">
+		<widget source="global.CurrentTime" render="Label" position="0,1172" size="227,51" font="youvix-b;29" foregroundColor="clockcolour" backgroundColor="menubackground" transparent="1" halign="right" valign="center" zPosition="1">
+			<convert type="ClockToText">Format:%a %e %b</convert>
+		</widget>
+		<ePixmap position="233,1179" size="37,37" pixmap="icons/clock4.png" alphatest="blend" zPosition="1"/>
+		<widget source="global.CurrentTime" render="Label" position="277,1173" size="169,51" font="youvix-b;43" foregroundColor="clockcolour" backgroundColor="menubackground" transparent="1" valign="center" zPosition="1">
+			<convert type="ClockToText">Format:%H:%M:%S</convert>
+		</widget>
+	</screen>
+	<screen name="InfobarUpArrow">
+		<ePixmap position="589,1173" size="67,43" pixmap="icons/arrow-up.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="InfobarClients">
+		<widget source="session.CurrentService" render="CiModuleControl" allVisible="0" position="2307, 1157" size="133,29" foregroundColor="white" backgroundColor="menubackground" halign="right" valign="center" zPosition="2" transparent="1" font="youvix-r;24"/>
+		<eLabel text="Clients" position="2280,1183" size="133,29" font="youvix-r;24" foregroundColor="white" backgroundColor="menubackground" halign="right" valign="center" transparent="1" zPosition="2" />
+		<eLabel text=":" position="2415,1183" size="29,29" font="youvix-r;24" foregroundColor="white" backgroundColor="menubackground" halign="left" valign="center" transparent="1" zPosition="2" />
+		<widget source="session.RecordState" render="Label" position="2409,1183" size="29,29" font="youvix-r;24" foregroundColor="white" backgroundColor="menubackground" halign="right" valign="center" transparent="1" zPosition="2">
+			<convert type="ClientsStreaming">NUMBER</convert>
+		</widget>
+		<widget source="session.CurrentService" render="Label" position="2307,1207" size="133,29" foregroundColor="white" backgroundColor="menubackground" halign="right" valign="center" zPosition="2" transparent="1" font="youvix-r;24">
+			<convert type="HddState"></convert> <!-- "I"(internal)/"S"(SSD)/"E"(external), standby - yellow, active - green -->
+		</widget>
+	</screen>
+	<screen name="InfobarLeftArrow">
+		<ePixmap position="20,1267" size="43,64" pixmap="icons/arrow-left.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="InfobarChannelName">
+		<widget source="session.CurrentService" render="ChannelNumber" position="47,1247" size="160,107" font="youvix-b;45" foregroundColor="lightgrey" backgroundColor="menubackground" transparent="1" valign="center" halign="right" noWrap="0"/>
+		<widget source="session.CurrentService" render="FixedLabel" text="◦" position="216,1247" size="21,107" font="youvix-b;45" foregroundColor="yellow" backgroundColor="menubackground" transparent="1" valign="center" halign="left" noWrap="1"/>
+		<widget source="session.CurrentService" render="Label" position="253,1247" size="527,107" font="youvix-b;45" foregroundColor="white" backgroundColor="menubackground" transparent="1" valign="center" halign="left" noWrap="0">
+			<convert type="ServiceName">NameOnly</convert>
+		</widget>
+	</screen>
+	<screen name="InfobarProgramNowStartTime">
+		<widget source="session.Event_Now" render="Label" position="793,1247" size="133,51" font="youvix-b;43" foregroundColor="white" backgroundColor="lightcolour" transparent="1" valign="center" noWrap="1">
+			<convert type="EventTime">StartTime</convert>
+			<convert type="ClockToText">Format:%H:%M</convert>
+		</widget>
+	</screen>
+	<screen name="InfobarNowPlayingIcon">
+		<ePixmap position="1048,1249" size="40,40" pixmap="icons/nowplaying.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="InfobarRecIcon">
+		<widget source="session.RecordState" render="Pixmap" pixmap="icons/record.png" position="1001,1249" size="40,40" zPosition="1" backgroundColor="lightcolour" alphatest="blend">
+			<convert type="ConditionalShowHide">Blink,1000</convert>
+		</widget>
+	</screen>
+	<screen name="InfobarProgramNowName">
+		<widget source="session.Event_Now" render="Label" position="1100,1243" size="933,52" font="youvix-r;45" foregroundColor="white" backgroundColor="lightcolour" transparent="1" valign="center" noWrap="1">
+			<convert type="EventName">Name</convert>
+		</widget>
+	</screen>
+	<screen name="InfobarProgramNowRemainingTime">
+		<widget source="session.Event_Now" render="Label" position="2100,1229" size="200,93" font="youvix-r;40" foregroundColor="white" backgroundColor="lightcolour" transparent="1" noWrap="0" valign="center">
+			<convert type="EventTime">Remaining</convert>
+			<convert type="RemainingToText">InMinutes</convert>
+		</widget>
+	</screen>
+	<screen name="InfobarInfoIcon">
+		<ePixmap position="2047,1248" size="47,47" pixmap="icons/info.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="InfobarStatusIcons">
+		<widget source="session.Event_Now" render="AudioIcon" path="audioicon" pixmap="audioicon/icon_pdc.png" position="891,1303" size="80,59" zPosition="1" alphatest="blend">
+			<convert type="EventName">Pdc</convert>
+			<convert type="ConditionalShowHide"/>
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_subservices.png" position="984,1303" size="80,59" zPosition="1" alphatest="blend">
+			<convert type="ServiceInfo">SubservicesAvailable</convert>
+			<convert type="ConditionalShowHide"/>
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_crypted.png" position="1077,1303" size="80,59" zPosition="1" alphatest="blend">
+			<convert type="ServiceInfo">IsCrypted</convert>
+			<convert type="ConditionalShowHide" />
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_crypted_csa.png" position="1077,1303" size="80,59" zPosition="1" alphatest="blend">
+			<convert type="ServiceInfo">IsSoftCSA</convert>
+			<convert type="ConditionalShowHide" />
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_avc.png" position="1171,1303" size="80,59" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">IsVideoAVC</convert>
+			<convert type="ConditionalShowHide" />
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_hevc.png" position="1171,1303" size="80,59" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">IsVideoHEVC</convert>
+			<convert type="ConditionalShowHide" />
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_mpeg4.png" position="1171,1303" size="80,59" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">IsStream</convert>
+			<convert type="ConditionalShowHide" />
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_4k.png" position="1264,1303" size="80,59" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">Is4K</convert>
+			<convert type="ConditionalShowHide" />
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_fhd.png" position="1264,1303" size="80,59" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">Is1080</convert>
+			<convert type="ConditionalShowHide" />
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_hd.png" position="1264,1303" size="80,59" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">Is720</convert>
+			<convert type="ConditionalShowHide" />
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_sd.png" position="1264,1303" size="80,59" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">Is576</convert>
+			<convert type="ConditionalShowHide" />
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_sd.png" position="1264,1303" size="80,59" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">Is480</convert>
+			<convert type="ConditionalShowHide" />
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_16-9.png" position="1357,1303" size="80,59" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">IsWidescreen</convert>
+			<convert type="ConditionalShowHide" />
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_4-3.png" position="1357,1303" size="80,59" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">IsNotWidescreen</convert>
+			<convert type="ConditionalShowHide" />
+		</widget>
+		<widget source="session.CurrentService" render="AudioIcon" path="audioicon" position="1451,1303" size="80,59" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">AudioCodecIcon</convert>
+			<convert type="ConditionalShowHide"/>
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_2.0.png" position="1544,1303" size="80,59" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">IsMPEG1LayerII</convert>
+			<convert type="ConditionalShowHide">True</convert>
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_2.0.png" position="1544,1303" size="80,59" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">IsAudio20</convert>
+			<convert type="ConditionalShowHide">True</convert>
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_2.0.png" position="1544,1303" size="80,59" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">IsAudioStereo</convert>
+			<convert type="ConditionalShowHide">True</convert>
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_5.1.png" position="1544,1303" size="80,59" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">IsAudio51</convert>
+			<convert type="ConditionalShowHide">True</convert>
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_7.1.png" position="1544,1303" size="80,59" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">IsAudio71</convert>
+			<convert type="ConditionalShowHide">True</convert>
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_teletext.png" position="1637,1303" size="80,59" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">HasTelext</convert>
+			<convert type="ConditionalShowHide" />
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_audio_tracks.png" position="1731,1303" size="80,59" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">AudioTracksAvailable</convert>
+			<convert type="ConditionalShowHide" />
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_subtitles.png" position="1824,1303" size="80,59" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">SubtitlesAvailable</convert>
+			<convert type="ConditionalShowHide" />
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_hdr.png" position="1917,1303" size="80,59" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">IsHDR</convert>
+			<convert type="ConditionalShowHide" />
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_hdr10.png" position="1917,1303" size="80,59" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">IsHDR10</convert>
+			<convert type="ConditionalShowHide" />
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_hlg.png" position="1917,1303" size="80,59" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">IsHLG</convert>
+			<convert type="ConditionalShowHide" />
+		</widget> 
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_hbbtv.png" position="2011,1303" size="80,59" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">HasHBBTV</convert>
+			<convert type="ConditionalShowHide" />
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="icons/ico_dvb-s.png" position="2104,1313" size="51,51" alphatest="blend" zPosition="1">
+			<convert type="TransponderInfo">DVB-S;DVB-S2</convert>
+			<convert type="ConditionalShowHide"/>
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="icons/ico_dvb-t.png" position="2104,1313" size="51,51" alphatest="blend" zPosition="1">
+			<convert type="TransponderInfo">DVB-T;DVB-T2</convert>
+			<convert type="ConditionalShowHide"/>
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="icons/ico_dvb-c.png" position="2104,1313" size="51,51" alphatest="blend" zPosition="1">
+			<convert type="TransponderInfo">DVB-C</convert>
+			<convert type="ConditionalShowHide"/>
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="icons/ico_stream.png" position="2104,1313" size="51,51" alphatest="blend" zPosition="1">
+			<convert type="TransponderInfo">Stream</convert>
+			<convert type="ConditionalShowHide"/>
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="icons/catchup.png" position="2168,1313" size="51,51" alphatest="blend" zPosition="1">
+			<convert type="TransponderInfo">catchup</convert>
+			<convert type="ConditionalShowHide"/>
+		</widget>
+		<widget source="global.OnlineStableUpdateState" render="Pixmap" pixmap="buttons/stableupdate.png" position="2333,1367" size="225,71" alphatest="blend" zPosition="1">
+			<convert type="ConditionalShowHide">Blink,1000</convert>
+		</widget>
+		<widget source="global.OnlineUnstableUpdateState" render="Pixmap" pixmap="buttons/unstableupdate.png" position="2333,1367" size="225,71" alphatest="blend" zPosition="1">
+			<convert type="ConditionalShowHide">Blink,1000</convert>
+		</widget>
+	</screen>
+	<screen name="InfobarPicon">
+		<widget source="session.CurrentService" render="Picon" position="2293,1235" size="207,129" transparent="0" alphatest="blend" zPosition="1">
+			<convert type="ServiceName">Reference</convert>
+		</widget>
+	</screen>
+	<screen name="InfobarRightArrow">
+		<ePixmap position="2509,1267" size="43,64" pixmap="icons/arrow-right.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="InfobarDownArrow">
+		<ePixmap position="589,1384" size="67,43" pixmap="icons/arrow-down.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="InfobarProgramNextStartTime">
+		<widget source="session.Event_Next" render="Label" position="793,1380" size="133,47" font="youvix-b;37" foregroundColor="grey" backgroundColor="menubackground" transparent="1" noWrap="1" valign="center" halign="left">
+			<convert type="EventTime">StartTime</convert>
+			<convert type="ClockToText">Format:%H:%M</convert>
+		</widget>
+	</screen>
+	<screen name="InfobarProgramNextName">
+		<widget source="session.Event_Next" render="Label" position="1040,1380" size="1047,47" font="youvix-r;35" foregroundColor="grey" backgroundColor="menubackground" transparent="1" noWrap="1" valign="center" halign="left">
+			<convert type="EventName">Name</convert>
+		</widget>
+	</screen>
+	<screen name="InfobarProgramNextDuration">
+		<widget source="session.Event_Next" render="Label" position="2120,1380" size="200,47" font="youvix-r;35" foregroundColor="grey" backgroundColor="menubackground" transparent="1" noWrap="1" halign="left" valign="center">
+			<convert type="EventTime">Duration</convert>
+			<convert type="ClockToText">InMinutes</convert>
+		</widget>
+	</screen>
+	<screen name="InfobarTunerStatus">
+		<widget source="session.FrontendInfo" render="Label" position="97,1380" size="400,47" font="youvix-r;35" backgroundColor="menubackground" zPosition="1" transparent="1" halign="left">
+<!--		<convert type="FrontendInfo">USE_TUNERS_STRING</convert> -->
+			<convert type="FrontendInfo">STRING,12,12</convert>
+		</widget>
+	</screen>
+	<screen name="PlayerTemplate">
+		<widget source="Title" render="Label" position="center,33" size="2000,40" font="youvix-b;33" foregroundColor="darkcolour" backgroundColor="background2" halign="right" transparent="1" zPosition="1" />
+		<widget source="session.CurrentService" render="Picon" position="269,61" size="93,56" transparent="0" alphatest="blend" zPosition="1">
+			<convert type="MovieReference"/>
+		</widget>
+		<widget source="session.CurrentService" render="Label" position="433,45" size="1133,80" font="youvix-r;35" foregroundColor="white" backgroundColor="background2" transparent="1" valign="center" noWrap="0" zPosition="1">
+			<convert type="ServiceName">NameOnly</convert>
+		</widget>
+		<ePixmap position="center,33" size="2023,183" pixmap="infobar/moviebar.png" zPosition="-1" scale="1"/>
+		<ePixmap position="367,64" size="47,47" pixmap="icons/info.png" alphatest="blend" zPosition="1"/>
+		<widget source="global.CurrentTime" render="Label" position="1700,76" size="267,51" font="youvix-b;40" foregroundColor="clockcolour" backgroundColor="background2" transparent="1" noWrap="1" halign="right" valign="center" zPosition="1">
+			<convert type="ClockToText">Format:%a %e %h</convert>
+		</widget>
+		<ePixmap position="1980,80" size="40,40" pixmap="icons/clock5.png" alphatest="blend" zPosition="1"/>
+		<widget source="global.CurrentTime" render="Label" position="2031,76" size="160,51" font="youvix-b;40" foregroundColor="clockcolour" backgroundColor="background2" transparent="1" noWrap="1" valign="center" zPosition="1">
+			<convert type="ClockToText">Format:%H:%M:%S</convert>
+		</widget>
+		<eLabel backgroundColor="#064A6E" position="center,131" zPosition="1" size="1823,16" transparent="0" cornerRadius="8"/>
+		<widget source="session.CurrentService" render="PositionGauge" position="368,127" size="1823,24" zPosition="3" transparent="1" cornerRadius="8">
+			<convert type="ServicePosition">Gauge</convert>
+		</widget>
+		<widget source="session.CurrentService" render="Progress" backgroundColor="#064A6E" foregroundColor="lightcolour" position="center,131" zPosition="2" size="1823,16" transparent="1" cornerRadius="8">
+			<convert type="ServicePosition">Position</convert>
+		</widget>
+		<widget source="session.CurrentService" render="Label" position="1548,153" size="320,51" font="youvix-r;35" foregroundColor="white" backgroundColor="background2" transparent="1" halign="right" valign="center">
+			<convert type="ServicePosition">Position,ShowHours</convert>
+		</widget>
+		<eLabel text="/" font="youvix-r;35" position="1876,159" size="33,51" foregroundColor="lightcolour" backgroundColor="background2" transparent="1" zPosition="1"/>
+		<widget source="session.CurrentService" render="Label" position="1897,153" size="173,51" font="youvix-r;35" foregroundColor="lightcolour" backgroundColor="background2" transparent="1" valign="center">
+			<convert type="ServicePosition">Remaining,Plus,ShowHours</convert>
+		</widget>
+		<widget source="session.CurrentService" render="Label" position="1987,153" size="200,51" font="youvix-b;35" foregroundColor="yellow" backgroundColor="background2" transparent="1" valign="center" halign="right">
+			<convert type="ServicePosition">Length,ShowHours</convert>
+		</widget>
+		<widget source="session.CurrentService" render="Label" position="493,163" size="215,37" font="youvix-r;29" backgroundColor="background2" transparent="1" borderWidth="4" borderColor="black">
+			<convert type="PliExtraInfo">ResolutionString</convert>
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_avc.png" position="715,152" size="80,59" scale="1" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">IsVideoAVC</convert>
+			<convert type="ConditionalShowHide" />
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_hevc.png" position="715,152" size="80,59" scale="1" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">IsVideoHEVC</convert>
+			<convert type="ConditionalShowHide" />
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_mpeg4.png" position="715,152" size="80,59" scale="1" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">IsStream</convert>
+			<convert type="ConditionalShowHide" />
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_4k.png" position="801,152" size="80,59" scale="1" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">Is4K</convert>
+			<convert type="ConditionalShowHide" />
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_fhd.png" position="801,152" size="80,59" scale="1" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">Is1080</convert>
+			<convert type="ConditionalShowHide" />
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_hd.png" position="801,152" size="80,59" scale="1" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">Is720</convert>
+			<convert type="ConditionalShowHide" />
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_sd.png" position="801,152" size="80,59" scale="1" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">Is576</convert>
+			<convert type="ConditionalShowHide" />
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_sd.png" position="801,152" size="80,59" scale="1" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">Is480</convert>
+			<convert type="ConditionalShowHide" />
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_4-3.png" position="888,152" size="80,59" scale="1" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">IsNotWidescreen</convert>
+			<convert type="ConditionalShowHide"/>
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_16-9.png" position="888,152" size="80,59" scale="1" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">IsWidescreen</convert>
+			<convert type="ConditionalShowHide"/>
+		</widget>
+		<widget source="session.CurrentService" render="AudioIcon" path="audioicon" position="975,152" size="80,59" alphatest="blend" zPosition="2">
+			<convert type="ServiceInfo">AudioCodecIcon</convert>
+			<convert type="ConditionalShowHide"/>
+		</widget>
+				<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_2.0.png" position="1061,152" size="80,59" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">IsMPEG1LayerII</convert>
+			<convert type="ConditionalShowHide">True</convert>
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_2.0.png" position="1061,152" size="80,59" scale="1" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">IsAudio20</convert>
+			<convert type="ConditionalShowHide">True</convert>
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_2.0.png" position="1061,152" size="80,59" scale="1" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">IsAudioStereo</convert>
+			<convert type="ConditionalShowHide">True</convert>
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_5.1.png" position="1061,152" size="80,59" scale="1" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">IsAudio51</convert>
+			<convert type="ConditionalShowHide">True</convert>
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="audioicon/icon_7.1.png" position="1061,152" size="80,59" scale="1" alphatest="blend" zPosition="1">
+			<convert type="ServiceInfo">IsAudio71</convert>
+			<convert type="ConditionalShowHide">True</convert>
+		</widget>
+		<widget source="session.RecordState" render="Pixmap" pixmap="YouViX-Blue-Mod-1440/icons/ico_stream2.png" position="1148,164" size="27,27" zPosition="1" alphatest="blend">
+			<convert type="ClientsStreaming"/>
+			<convert type="ConditionalShowHide">Blink</convert>
+		</widget>
+		<widget source="session.RecordState" render="Pixmap" pixmap="YouViX-Blue-Mod-1440/icons/ico_rec.png" position="1181,164" size="27,27" zPosition="1" alphatest="blend">
+			<convert type="ConditionalShowHide">Blink</convert>
+		</widget>
+	</screen>
+	<screen name="CatchupPlayerTemplate">
+		<widget source="Title" render="Label" position="center,45" size="2000,40" font="youvix-b;33" foregroundColor="darkcolour" backgroundColor="background2" halign="right" transparent="1" zPosition="1" />
+		<widget source="session.CurrentService" render="Picon" position="269,61" size="93,56" transparent="0" alphatest="blend" zPosition="1">
+			<convert type="MovieReference"/>
+		</widget>
+		<widget source="session.CurrentService" render="Label" position="433,45" size="1133,80" font="youvix-r;35" foregroundColor="white" backgroundColor="background2" transparent="1" valign="center" noWrap="0" zPosition="1">
+			<convert type="ServiceName">Name</convert>
+		</widget>
+		<ePixmap position="center,47" size="2023,160" pixmap="infobar/moviebar.png" zPosition="-1" />
+		<ePixmap position="367,64" size="47,47" pixmap="icons/info.png" alphatest="blend" zPosition="1"/>
+		<widget source="global.CurrentTime" render="Label" position="1700,76" size="267,51" font="youvix-b;40" foregroundColor="clockcolour" backgroundColor="background2" transparent="1" noWrap="1" halign="right" valign="center" zPosition="1">
+			<convert type="ClockToText">Format:%a %e %h</convert>
+		</widget>
+		<ePixmap position="1980,80" size="40,40" pixmap="icons/clock5.png" alphatest="blend" zPosition="1"/>
+		<widget source="global.CurrentTime" render="Label" position="2031,76" size="160,51" font="youvix-b;40" foregroundColor="clockcolour" backgroundColor="background2" transparent="1" noWrap="1" valign="center" zPosition="1">
+			<convert type="ClockToText">Format:%H:%M:%S</convert>
+		</widget>
+		<widget source="progress" render="Progress" backgroundColor="background2" foregroundColor="lightcolour" position="center,127" size="1823,27" zPosition="2" pointer="infobar/movieprogressbar.png:1823,5" transparent="1"/>
+		<widget name="time_elapsed" position="1508,151" size="320,51" font="youvix-r;35" foregroundColor="white" backgroundColor="background2" transparent="1" halign="right" valign="center"/>
+		<eLabel text="/" font="youvix-r;35" position="1836,156" size="33,51" foregroundColor="lightcolour" backgroundColor="background2" transparent="1" zPosition="1"/>
+		<widget name="time_duration" position="1860,151" size="173,51" font="youvix-r;35" foregroundColor="lightcolour" backgroundColor="background2" transparent="1" valign="center"/>
+		<ePixmap position="2000,159" size="35,35" pixmap="icons/info3.png" alphatest="blend" zPosition="1"/>
+		<widget name="time_remaining" position="2053,151" size="200,51" font="youvix-b;35" foregroundColor="yellow" backgroundColor="background2" transparent="1" valign="center"/>
+		<widget source="session.CurrentService" render="Label" position="493,159" size="215,37" font="youvix-r;29" backgroundColor="background2" transparent="1" borderWidth="4" borderColor="black">
+			<convert type="PliExtraInfo">ResolutionString</convert>
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="YouViX-Blue-Mod-1440/icons/txt.png" position="715,159" size="80,37" zPosition="1" alphatest="blend">
+			<convert type="ServiceInfo">HasTelext</convert>
+			<convert type="ConditionalShowHide"/>
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="YouViX-Blue-Mod-1440/icons/2-0.png" position="801,159" size="80,37" zPosition="1" alphatest="blend">
+			<convert type="ServiceInfo">IsStereo</convert>
+			<convert type="ConditionalShowHide"/>
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="YouViX-Blue-Mod-1440/icons/5-1.png" position="801,159" size="80,37" zPosition="1" alphatest="blend">
+			<convert type="ServiceInfo">IsMultichannel</convert>
+			<convert type="ConditionalShowHide"/>
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="YouViX-Blue-Mod-1440/icons/4-3.png" position="888,159" size="80,37" zPosition="1" alphatest="blend">
+			<convert type="ServiceInfo">IsNotWidescreen</convert>
+			<convert type="ConditionalShowHide"/>
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="YouViX-Blue-Mod-1440/icons/16-9.png" position="888,159" size="80,37" zPosition="1" alphatest="blend">
+			<convert type="ServiceInfo">IsWidescreen</convert>
+			<convert type="ConditionalShowHide"/>
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="YouViX-Blue-Mod-1440/icons/sdi.png" position="975,159" size="80,37" zPosition="1" alphatest="blend">
+			<convert type="ServiceInfo">IsSD</convert>
+			<convert type="ConditionalShowHide"/>
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="YouViX-Blue-Mod-1440/icons/hdi.png" position="975,159" size="80,37" zPosition="1" alphatest="blend">
+			<convert type="ServiceInfo">IsHD</convert>
+			<convert type="ConditionalShowHide"/>
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="YouViX-Blue-Mod-1440/icons/uhd.png" position="975,159" size="80,37" zPosition="1" alphatest="blend">
+			<convert type="ServiceInfo">Is4K</convert>
+			<convert type="ConditionalShowHide"/>
+		</widget>
+		<widget source="session.CurrentService" render="Label" position="1061,159" size="133,37" font="youvix-r;29" foregroundColor="white" backgroundColor="background2" transparent="1" zPosition="1">
+			<convert type="PliExtraInfo">VideoCodec</convert>
+		</widget>
+		<widget source="session.CurrentService" render="Label" position="1201,159" size="233,37" font="youvix-r;29" foregroundColor="white" backgroundColor="background2" transparent="1" zPosition="1">
+			<convert type="VAudioInfo">AudioCodec</convert>
+		</widget>
+		<widget source="session.RecordState" render="Pixmap" pixmap="YouViX-Blue-Mod-1440/icons/ico_stream2.png" position="1475,164" size="27,27" zPosition="1" alphatest="blend">
+			<convert type="ClientsStreaming"/>
+			<convert type="ConditionalShowHide">Blink</convert>
+		</widget>
+		<widget source="session.RecordState" render="Pixmap" pixmap="YouViX-Blue-Mod-1440/icons/ico_rec.png" position="1441,164" size="27,27" zPosition="1" alphatest="blend">
+			<convert type="ConditionalShowHide">Blink</convert>
+		</widget>
+	</screen>
+
+	 <!-- LOGOS -->
+	<screen name="OEA-Logo">
+		<widget name="oealogo" position="373,667" size="400,269"  zPosition="1" alphatest="blend"/>
+	</screen>
+	<screen name="BigYouVix-Logo">
+		<ePixmap position="240,280" size="512,512" pixmap="logos/youvix-big.png" alphatest="blend" zPosition="1"/>
+	</screen>
+
+	<!-- MENU TEMPLATES -->
+	<screen name="InfoPanel">
+		<panel name="MenuClock" />
+		<panel name="TopMenuBlock2" />
+		<panel name="LeftMenuBlock" />
+		<panel name="CenterMenuBlock" />
+		<panel name="BigRightMenuBlock" />
+		<panel name="FarRightMenuBlock" />
+		<panel name="BottomMenuBlock2" />
+		<panel name="MenuTitle2" />
+		<panel name="MenuButtonBar" />
+		<panel name="MenuKeyAutoTemplate" />
+	</screen>
+	<screen name="BasicMenuPanel">
+		<panel name="MenuClock" />
+		<panel name="TopMenuBlock2" />
+		<panel name="LeftMenuBlock" />
+		<panel name="CenterMenuBlock" />
+		<panel name="BigRightMenuBlock" />
+		<panel name="FarRightMenuBlock" />
+		<panel name="BottomMenuBlock2" />
+		<panel name="MenuUpArrow" />
+		<panel name="MenuLeftArrow" />
+		<panel name="FarRightMenuRightArrow" />
+		<panel name="MenuDownArrow" />
+	</screen>
+	<screen name="MenuPanel">
+		<panel name="MenuClock" />
+		<panel name="TopMenuBlock" />
+		<panel name="LeftMenuBlock" />
+		<panel name="CenterMenuBlock" />
+		<panel name="RightMenuBlock" />
+		<panel name="BottomMenuBlock" />
+		<panel name="MenuTitle" />
+		<panel name="MenuUpArrow" />
+		<panel name="MenuLeftArrow" />
+		<panel name="MenuRightArrow" />
+		<panel name="MenuDownArrow" />
+		<widget source="key_previous" conditional="key_previous" render="Pixmap" pixmap="buttons/key_left.png" alphatest="blend" position="107,1240" size="71,51">
+			<convert type="ConditionalShowHide"/>
+		</widget>
+		<widget source="key_next" conditional="key_next" render="Pixmap" pixmap="buttons/key_right.png" alphatest="blend" position="187,1240" size="71,51">
+			<convert type="ConditionalShowHide"/>
+		</widget>
+		<panel name="MenuButtonBar" />
+		<panel name="MenuKeyAutoTemplate" />
+	</screen>
+	<screen name="MenuPanel2">
+		<panel name="MenuClock" />
+		<panel name="TopMenuBlock" />
+		<panel name="LeftMenuBlock" />
+		<panel name="CenterMenuBlock" />
+		<panel name="RightMenuBlock" />
+		<panel name="BottomMenuBlock2" />
+		<panel name="MenuTitle" />
+		<panel name="MenuUpArrow" />
+		<panel name="MenuLeftArrow" />
+		<panel name="MenuRightArrow" />
+		<panel name="MenuDownArrow" />
+		<panel name="MenuButtonBar" />
+		<panel name="MenuKeyAutoTemplate" />
+	</screen>
+	<screen name="BigMenuPanel">
+		<panel name="MenuClock" />
+		<panel name="TopMenuBlock2" />
+		<panel name="LeftMenuBlock" />
+		<panel name="CenterMenuBlock" />
+		<panel name="BigRightMenuBlock" />
+		<panel name="FarRightMenuBlock" />
+		<panel name="BottomMenuBlock2" />
+		<panel name="MenuTitle2" />
+		<panel name="MenuUpArrow" />
+		<panel name="MenuLeftArrow" />
+		<panel name="FarRightMenuRightArrow" />
+		<panel name="MenuDownArrow" />
+		<panel name="MenuButtonBar" />
+		<panel name="MenuKeyAutoTemplate" />
+	</screen>
+	<screen name="BigMenuPanel2">
+		<panel name="MenuClock" />
+		<panel name="TopMenuBlock" />
+		<panel name="LeftMenuBlock" />
+		<panel name="CenterMenuBlock" />
+		<panel name="BigRightMenuBlock" />
+		<panel name="FarRightMenuBlock" />
+		<panel name="BottomMenuBlock" />
+		<panel name="MenuTitle" />
+		<panel name="MenuUpArrow" />
+		<panel name="MenuLeftArrow" />
+		<panel name="FarRightMenuRightArrow" />
+		<panel name="MenuDownArrow" />
+		<panel name="MenuKeyAutoTemplate" />
+	</screen>
+	<screen name="BigMenuPanel3">
+		<panel name="MenuClock" />
+		<panel name="TopMenuBlock2" />
+		<panel name="LeftMenuBlock" />
+		<panel name="CenterMenuBlock" />
+		<panel name="BigRightMenuBlock2" />
+		<panel name="FarRightMenuBlock" />
+		<panel name="BottomMenuBlock2" />
+		<panel name="MenuTitle2" />
+		<panel name="MenuUpArrow" />
+		<panel name="MenuLeftArrow" />
+		<panel name="FarRightMenuRightArrow" />
+		<panel name="MenuDownArrow" />
+		<panel name="MenuButtonBar" />
+		<panel name="MenuKeyAutoTemplate" />
+	</screen>
+	<screen name="MenuClock">
+		<eLabel position="1953,0" size="507,67" backgroundColor="menubackground" zPosition="-1" cornerRadius="21"/>
+		<widget source="global.CurrentTime" render="Label" position="1953,0" size="267,67" font="youvix-b;40" foregroundColor="clockcolour" backgroundColor="menubackground" transparent="1" noWrap="1" halign="right" valign="center" zPosition="1">
+			<convert type="ClockToText">Format:%a %e %b</convert>
+		</widget>
+		<ePixmap position="2233,15" size="37,37" pixmap="icons/clock4.png" alphatest="blend" zPosition="1"/>
+		<widget source="global.CurrentTime" render="Label" position="2284,0" size="173,67" font="youvix-b;40" foregroundColor="clockcolour" backgroundColor="menubackground" transparent="1" noWrap="1" valign="center" zPosition="1">
+			<convert type="ClockToText">Format:%H:%M:%S</convert>
+		</widget>
+	</screen>
+	<screen name="MenuMyChannelText">
+		<eLabel text="MyChannelSelection" position="113,3" size="533,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyMenuText">
+		<eLabel text="MyMenu" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyHelpText">
+		<eLabel text="MyHelp" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+	</screen>
+	<screen name="MenuMySetupText">
+		<eLabel text="MySetup" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="333,280" size="341,341" pixmap="menuicons/setup.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyInfoText">
+		<eLabel text="MyInfo" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="333,280" size="341,341" pixmap="menuicons/info.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyInputText">
+		<eLabel text="MyInput" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="333,280" size="341,341" pixmap="menuicons/question.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyServicesText">
+		<eLabel text="MyTextBox" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="333,280" size="341,341" pixmap="menuicons/info.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyYoutubeText">
+		<eLabel text="MyYouTube" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="133,280" size="733,292" pixmap="menuicons/YouTube.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyYoutubeTV">
+		<eLabel text="MyYouTubeTV" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="133,280" size="733,292" pixmap="menuicons/YouTubeTV.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyCommitInfoText">
+		<eLabel text="MyCommitInfo" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="333,280" size="341,341" pixmap="menuicons/info.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyGuideText">
+		<eLabel text="MyGuide" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyIMDBText">
+		<eLabel text="MyIMDB" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="233,280" size="533,352" pixmap="menuicons/imdb.png" alphatest="blend" scale="1" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyAudioText">
+		<eLabel text="MyAudio" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="333,280" size="341,341" pixmap="menuicons/audio.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyViewText">
+		<eLabel text="MyView" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyPluginsText">
+		<eLabel text="MyPlugins" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="333,280" size="341,341" pixmap="menuicons/plugins.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyTimersText">
+		<eLabel text="MyTimers" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="333,280" size="341,341" pixmap="menuicons/timers.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyNetworkText">
+		<eLabel text="MyNetwork" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="333,280" size="341,341" pixmap="menuicons/network.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuMySkinsText">
+		<eLabel text="MySkins" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="333,280" size="341,341" pixmap="menuicons/skins.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuMySoftcamsText">
+		<eLabel text="MySoftcams" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="333,280" size="341,341" pixmap="menuicons/softcam.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyCamsText">
+		<eLabel text="MyCams" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="333,280" size="341,341" pixmap="menuicons/cam.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyUpdatesText">
+		<eLabel text="MyUpdates" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="333,280" size="341,341" pixmap="menuicons/updates.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyTunersText">
+		<eLabel text="MyTuners" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="333,280" size="341,341" pixmap="menuicons/tuners.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyViXText">
+		<eLabel text="MyViX" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<panel name="BigYouVix-Logo" />
+	</screen>
+	<screen name="MenuMyJobsText">
+		<eLabel text="MyJobs" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="333,280" size="341,341" pixmap="menuicons/info.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyFansText">
+		<eLabel text="MyFans" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="333,280" size="341,341" pixmap="menuicons/fan.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyHDMIText">
+		<eLabel text="MyHDMI" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="333,280" size="341,341" pixmap="menuicons/hdmicec.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyRemotesText">
+		<eLabel text="MyRemotes" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="333,280" size="341,341" pixmap="menuicons/remotecontrol.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyOnDemandText">
+		<eLabel text="MyOnDemand" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyMessagesText">
+		<eLabel text="MyMessages" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyBouquetsText">
+		<eLabel text="MyBouquets" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyRadioText">
+		<eLabel text="MyRadio" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyWeatherText">
+		<eLabel text="MyWeather" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="133,280" size="733,292" pixmap="menuicons/msnweather.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyWeatherForecaText">
+		<eLabel text="MyWeather" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="133,280" size="733,292" pixmap="menuicons/Foreca.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyEPGText">
+		<eLabel text="MyEPG" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyWizardText">
+		<eLabel text="MyWizard" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyConsoleText">
+		<eLabel text="MyConsole" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="333,280" size="341,341" pixmap="menuicons/console.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyLanguagesText">
+		<eLabel text="MyLanguages" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="333,280" size="341,341" pixmap="menuicons/languages.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyRuyaText">
+		<eLabel text="MyRuya" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="333,280" size="341,341" pixmap="menuicons/ruya.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuMySundtekText">
+		<eLabel text="MySundtek" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyFritzText">
+		<eLabel text="MyFritz" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="333,280" size="341,341" pixmap="menuicons/fritz.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyMultiBootText">
+		<eLabel text="MyMultiBoot" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="333,280" size="341,341" pixmap="menuicons/setup.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyOBHBluePanelText">
+		<eLabel text="MyBluePanel" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="333,280" size="341,341" pixmap="menuicons/setup.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyOBHEPGPanelText">
+		<eLabel text="MyEPGPanel" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="333,280" size="341,341" pixmap="menuicons/setup.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyOBHSystemPanelText">
+		<eLabel text="MySystemInfo" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="333,280" size="341,341" pixmap="menuicons/info.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyOBHAppsPanelText">
+		<eLabel text="MyApps" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyOBHDevicesPanelText">
+		<eLabel text="MyDevices" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="333,280" size="341,341" pixmap="menuicons/setup.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyOBHBackupPanelText">
+		<eLabel text="MyBackups" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="333,280" size="341,341" pixmap="menuicons/setup.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyHRTunerProxyText">
+		<eLabel text="MyDVR" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="333,280" size="341,341" pixmap="menuicons/setup.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyMediaPlayerText">
+		<eLabel text="MyMediaPlayer" position="113,3" size="400,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="333,240" size="341,341" pixmap="menuicons/audio.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuMyVirtualKeyboardText">
+		<eLabel text="MyVirtualKeyboard" position="113,3" size="453,57" font="youvix-r;49" foregroundColor="white" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1"/>
+		<ePixmap position="333,240" size="341,341" pixmap="menuicons/question.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuTitle">
+		<widget source="ScreenPath" conditional="ScreenPath" render="RunningText" options="movetype=running,startpoint=0,direction=left,steptime=2,repeat=5,always=0,oneshot=1,startdelay=5000,wrap" position="117,59" size="783,44" font="youvix-r;35" foregroundColor="darkcolour" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1" />
+		<widget source="Title" render="RunningText" options="movetype=running,startpoint=0,direction=left,steptime=2,repeat=5,always=0,oneshot=1,startdelay=5000,wrap" position="121,103" size="779,44" font="youvix-r;36" foregroundColor="darkcolour" backgroundColor="menubackground" valign="top" transparent="1" zPosition="1" />
+	</screen>
+	<screen name="MenuTitle2">
+		<widget source="ScreenPath" conditional="ScreenPath" render="Label" position="117,59" size="2343,44" foregroundColor="darkcolour" backgroundColor="menubackground" valign="center" transparent="1" zPosition="1" font="youvix-r;35"/>
+		<widget source="Title" render="Label" position="121,103" size="2339,44" foregroundColor="darkcolour" backgroundColor="menubackground" transparent="1" zPosition="1" font="youvix-r;36" valign="top"/>
+	</screen>
+	<screen name="TopMenuBlock">
+		<eLabel position="100,0" size="800,200" backgroundColor="menubackground" zPosition="-1" />
+	</screen>
+	<screen name="TopMenuBlock2">
+		<eLabel position="100,0" size="2360,200" backgroundColor="menubackground" zPosition="-1" />
+		<ePixmap pixmap="extensions/smallshadowline.png" position="0,199" size="2560,4" zPosition="2"/>
+	</screen>
+	<screen name="LeftMenuBlock">
+		<eLabel position="0,200" size="100,1040" backgroundColor="menubackground" zPosition="-1" />
+	</screen>
+	<screen name="CenterMenuBlock">
+		<eLabel position="100,200" size="800,1040" backgroundColor="menubackground2" zPosition="-1" />
+	</screen>
+	<screen name="RightMenuBlock">
+		<eLabel position="900,200" size="100,1040" backgroundColor="menubackground" zPosition="-1" />
+	</screen>
+	<screen name="BigRightMenuBlock">
+		<eLabel position="900,200" size="1560,1040" backgroundColor="menubackground" zPosition="-1" />
+	</screen>
+	<screen name="BigRightMenuBlock2">
+		<eLabel position="900,200" size="1560,1040" backgroundColor="menubackground" zPosition="-6" />
+	</screen>
+	<screen name="FarRightMenuBlock">
+		<eLabel position="2460,200" size="100,1040" backgroundColor="menubackground2" zPosition="-1" />
+	</screen>
+	<screen name="FarRightMenuRightArrow">
+		<ePixmap position="2473,667" size="43,64" pixmap="icons/arrow-right.png" alphatest="blend" zPosition="1" />
+	</screen>
+	<screen name="BottomMenuBlock">
+		<eLabel position="100,1240" size="800,200" backgroundColor="menubackground" zPosition="-1" />
+	</screen>
+	<screen name="BottomMenuBlock2">
+		<eLabel position="100,1240" size="2360,200" backgroundColor="menubackground" zPosition="-1" />
+		<ePixmap pixmap="extensions/smallshadowline.png" position="0,1239" size="2560,4" zPosition="2"/>
+	</screen>
+	<screen name="MenuUpArrow">
+		<ePixmap position="460,147" size="67,43" pixmap="icons/arrow-up.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuLeftArrow">
+		<ePixmap position="47,667" size="43,64" pixmap="icons/arrow-left.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuRightArrow">
+		<ePixmap position="913,667" size="43,64" pixmap="icons/arrow-right.png" alphatest="blend" zPosition="1"/>
+	</screen>
+	<screen name="MenuDownArrow">
+		<ePixmap position="460,1248" size="67,43" pixmap="icons/arrow-down.png" alphatest="blend" zPosition="1"/>
+	</screen>
+
+	<!-- ## MENU WIDGETS ## -->
+	<screen name="MenuConfigWidget">
+		<widget name="config" position="907,220" size="1547,17*59" font="youvix-r;43" itemHeight="59" foregroundColor="white" backgroundColor="menubackground" transparent="1" enableWrapAround="1" scrollbarMode="showOnDemand" zPosition="1" />
+	</screen>
+	<screen name="MenuListWidget">
+		<widget name="list" position="907,353" size="1547,15*59" font="youvix-r;43" itemHeight="59" foregroundColor="white" backgroundColor="menubackground" transparent="1" enableWrapAround="1" scrollbarMode="showOnDemand" zPosition="1" />
+	</screen>
+	<screen name="MenuMenuWidget">
+		<widget name="menu" position="907,220" size="1547,17*59" font="youvix-r;43" itemHeight="59" foregroundColor="white" backgroundColor="menubackground" transparent="1" enableWrapAround="1" scrollbarMode="showOnDemand" zPosition="1" />
+	</screen>
+	<screen name="MenuListLogWidget">
+		<widget name="list" position="907,220" size="1547,1000" font="youvix-r;37" foregroundColor="white" backgroundColor="menubackground" transparent="1" zPosition="1" />
+	</screen>
+	<screen name="MenuAboutWidget">
+		<widget name="about" position="907,220" size="1547,1000" font="youvix-r;37" foregroundColor="white" backgroundColor="menubackground" transparent="1" zPosition="1" />
+	</screen>
+	<screen name="MenuDescriptionWidget">
+		<widget source="description" render="Label" objectTypes="description,StaticText" position="107,960" size="787,213" font="youvix-r;29" halign="center" valign="center" foregroundColor="white" backgroundColor="menubackground2" />
+		<widget name="description" objectTypes="description,Button,Label" position="107,960" size="787,213" font="youvix-r;29" foregroundColor="white" backgroundColor="menubackground2" transparent="1" halign="center" valign="center" zPosition="1" />
+	</screen>
+	<screen name="MenuInformationWidget">
+		<widget name="information" position="107,1020" size="787,200" font="youvix-r;29" foregroundColor="white" backgroundColor="menubackground2" transparent="1" halign="center" valign="center" zPosition="1" />
+	</screen>
+	<screen name="MenuIntroductionWidget">
+		<widget source="introduction" render="Label" position="107,747" size="787,67" font="youvix-r;29" foregroundColor="white" backgroundColor="menubackground2" halign="center" valign="center"/>
+		<widget name="introduction" conditional="introduction" position="107,747" size="787,67" font="youvix-r;29" foregroundColor="white" backgroundColor="menubackground2" transparent="1" halign="center" valign="center" zPosition="1" />
+	</screen>
+	<screen name="MenuFootnoteWidget">
+		<widget source="footnote" render="Label" objectTypes="footnote,StaticText" position="107,1173" size="787,67" font="youvix-r;27" foregroundColor="yellow" backgroundColor="menubackground2" halign="right" valign="center"/>
+		<widget name="footnote"  conditional="footnote" position="107,1173" size="787,67" font="youvix-r;27" foregroundColor="yellow" backgroundColor="menubackground2" transparent="1" halign="center" valign="center" zPosition="1" />
+	</screen>
+	<screen name="MenuFooterWidget">
+		<widget name="footer" position="107,1020" size="787,200" font="youvix-r;32" foregroundColor="white" backgroundColor="menubackground2" transparent="1" halign="center" valign="center" zPosition="1" />
+	</screen>
+	<screen name="MenuHelpwindowWidget">
+		<widget name="HelpWindow" conditional="HelpWindow" pixmap="buttons/vkey_icon.png" position="107,600" size="1,1" backgroundColor="menubackground2" transparent="1" alphatest="blend" zPosition="1" />
+	</screen>
+	<screen name="MenuVirtualKeyboardVkey">
+		<widget source="VKeyIcon" render="Pixmap" pixmap="buttons/vkey_icon.png" position="113,507" size="721,1013" backgroundColor="menubackground2" transparent="1" alphatest="blend" zPosition="1" >
+			<convert type="ConditionalShowHide" />
+		</widget>
+	</screen>
+	<screen name="MenuBackupStatusWidget">
+		<widget name="backupstatus" position="107,1160" size="787,53" font="youvix-r;37" foregroundColor="white" backgroundColor="menubackground2" halign="center" valign="center" transparent="1" zPosition="1" />
+	</screen>
+	<screen name="MenuPleaseWaitWidget">
+		<widget name="pleasewait" position="907,220" size="1547,1000" font="youvix-r;37" foregroundColor="white" backgroundColor="menubackground" halign="center" valign="center" transparent="1" zPosition="1" />
+	</screen>
+
+	<!-- ## MENU BUTTONS ## -->
+	<screen name="MenuMenuButton">
+		<ePixmap pixmap="buttons/key_menu.png" position="2465,213" size="81,59" alphatest="blend" transparent="1" zPosition="1"/>
+	</screen>
+	<screen name="MenuInfoButton">
+		<ePixmap pixmap="buttons/key_info.png" position="2465,275" size="81,59" alphatest="blend" transparent="1" zPosition="1"/>
+	</screen>
+	<screen name="MenuTextButton">
+		<ePixmap pixmap="buttons/key_text.png" position="2465,336" size="81,59" alphatest="blend" transparent="1" zPosition="1"/>
+	</screen>
+	<screen name="MenuTextButtonVkey">
+		<widget source="VKeyIcon" render="Pixmap" pixmap="buttons/key_text.png" position="2465,336" size="81,59" alphatest="blend" transparent="1" zPosition="1" >
+			<convert type="ConditionalShowHide" />
+		</widget>
+	</screen>
+	<screen name="MenuHelpButton">
+		<ePixmap pixmap="buttons/key_help.png" position="2465,397" size="81,59" alphatest="blend" transparent="1" zPosition="1"/>
+	</screen>
+	<screen name="MenuOKButton">
+		<ePixmap pixmap="buttons/key_ok.png" position="2465,459" size="81,59" alphatest="blend" transparent="1" zPosition="1"/> 
+	</screen>
+	<screen name="Menu0Button">
+		<ePixmap pixmap="buttons/key_0.png" position="2465,520" size="81,59" alphatest="blend" transparent="1" zPosition="1"/> 
+	</screen>
+	<screen name="MenuLeftRightButton">
+		<ePixmap pixmap="buttons/key-left_right.png" position="2456,581" size="100,59" alphatest="blend" transparent="1" zPosition="1"/> 
+	</screen>
+	<screen name="MenuExitButton">
+		<ePixmap pixmap="buttons/key-exit.png" position="2465,643" size="81,59" alphatest="blend" transparent="1" zPosition="1"/> 
+	</screen>
+	<screen name="MenuRecListButton">
+		<ePixmap pixmap="buttons/key_reclist.png" position="2465,704" size="81,59" alphatest="blend" transparent="1" zPosition="1"/> 
+	</screen>
+	<screen name="MenuKeyChButton">
+		<ePixmap pixmap="buttons/key_channel.png" position="2465,765" size="81,59" alphatest="blend" transparent="1" zPosition="1"/> 
+	</screen>
+	<screen name="MenuPrevNextButton">
+		<ePixmap pixmap="buttons/key-prev_next.png" position="2456,827" size="100,59" alphatest="blend" transparent="1" zPosition="1"/> 
+	</screen>
+	<screen name="MenuKeyAutoTemplate">
+		<widget addon="ButtonSequence" connection="key_help,key_info,key_menu,key_play,key_text,VKeyIcon,key_ok,key_0,key_exit,key_pvr,key_previous,key_left,key_next,key_right" 
+			pixmaps="key_help:buttons/key_help.png,key_info:buttons/key_info.png,key_menu:buttons/key_menu.png,key_play:buttons/key_play.png,key_text:buttons/key_text.png,VKeyIcon:buttons/key_text.png,key_ok:buttons/key_ok.png,key_0:buttons/key_0.png,key_exit:buttons/key_exit.png,key_pvr:buttons/key_reclist.png,key_previous:buttons/key_previous.png,key_left:buttons/key_left.png,key_next:buttons/key_next.png,key_right:buttons/key_right.png" 
+			position="113,1347" size="1107,59" spacing="1" transparent="1" zPosition="10" />
+	</screen>
+	<screen name="MenuButtonBar">
+		<widget addon="ColorButtonsSequence" connection="key_red,key_green,key_yellow,key_blue" textColors="key_red:buttonred,key_green:buttongreen,key_yellow:buttonyellow,key_blue:buttonblue" position="113,1280" size="2333,59" font="youvix-r;43" backgroundColor="menubackground" transparent="1" alignment="left" zPosition="2" spacing="104" />
+	</screen>
+
+	<!-- ## ONDEMAND TEMPLATES ## -->
+	<screen name="OnDemandThumbsCommon">
+		<panel name="BigMenuPanel" />
+		<panel name="MenuMyOnDemandText" />
+		<widget name="lab1" position="907,220" size="1547,1000" font="youvix-r;37" foregroundColor="white" backgroundColor="menubackground" halign="center" valign="center" transparent="1" zPosition="1" />
+		<widget name="list" position="907,220" size="1547,1000" font="youvix-r;37" itemHeight="156" foregroundColor="white" backgroundColor="menubackground" transparent="1" enableWrapAround="1" scrollbarMode="showOnDemand" zPosition="1" />	
+	</screen>
+	<screen name="OnDemandBBCiPlayerLogo">
+		<ePixmap pixmap="ondemand/bbciplayer.png" position="133,267" size="735,80" transparent="0" alphatest="blend" zPosition="1" />
+	</screen>
+	<screen name="OnDemandITVPlayerLogo">
+		<ePixmap pixmap="ondemand/itvplayer.png" position="133,267" size="735,80" transparent="0" alphatest="blend" zPosition="1" />
+	</screen>
+	<screen name="OnDemand4ODLogo">
+		<ePixmap pixmap="ondemand/4od.png" position="133,267" size="735,80" transparent="0" alphatest="blend" zPosition="1" />
+	</screen>
+	<screen name="OnDemand3PlayerLogo">
+		<ePixmap pixmap="ondemand/3player.png" position="133,267" size="735,80" transparent="0" alphatest="blend" zPosition="1" />
+	</screen>
+	<screen name="OnDemandIVIEWPlayerLogo">
+		<ePixmap pixmap="ondemand/iviewplayer.png" position="133,267" size="735,80" transparent="0" alphatest="blend" zPosition="1" />
+	</screen>
+	<screen name="OnDemandRTEPlayerLogo">
+		<ePixmap pixmap="ondemand/rteplayer.png" position="133,267" size="735,80" transparent="0" alphatest="blend" zPosition="1" />
+	</screen>
+	<screen name="OnDemandiRadioPlayerLogo">
+		<ePixmap pixmap="ondemand/iradioplayer.png" position="133,267" size="735,80" transparent="0" alphatest="blend" zPosition="1" />
+	</screen>
+	<screen name="OnDemandShoutcastLogo">
+		<ePixmap pixmap="ondemand/shoutcast.png" position="133,267" size="735,80" transparent="0" alphatest="blend" zPosition="1" />
+	</screen>
+	<screen name="OnDemandTuneINLogo">
+		<ePixmap pixmap="ondemand/tunein.png" position="133,267" size="735,80" transparent="0" alphatest="blend" zPosition="1" />
+	</screen>
+
+	<!-- WIZARD TEMPLATES -->
+	<screen name="WizardRemote">
+		<widget name="rc" pixmaps="rc.png,rcold.png" position="413,213" size="211,827" alphatest="blend" transparent="1" zPosition="1" />
+	</screen>
+	<screen name="WizardRemoteArrowDown">
+		<widget name="arrowdown" pixmap="arrowdown.png" position="-133,-133" size="49,93" alphatest="blend" zPosition="11" />
+	</screen>
+	<screen name="WizardRemoteArrowDown2">
+		<widget name="arrowdown2" pixmap="arrowdown.png" position="-133,-133" size="49,93" alphatest="blend" zPosition="11" />
+	</screen>
+	<screen name="WizardRemoteArrowUp">
+		<widget name="arrowup" pixmap="arrowup.png" position="-133,-133" size="49,93" alphatest="blend" zPosition="11" />
+	</screen>
+	<screen name="WizardRemoteArrowUp2">
+		<widget name="arrowup2" pixmap="arrowup.png" position="-133,-133" size="49,93" alphatest="blend" zPosition="11" />
+	</screen>
+	<screen name="WizardDescriptionWidget">
+		<widget name="text" position="907,213" size="1547,493" font="youvix-r;43" foregroundColor="white" backgroundColor="menubackground" transparent="1" zPosition="1" />
+	</screen>
+	<screen name="WizardConfigWidget">
+		<widget name="config" position="907,707" size="1547,9*59" font="youvix-r;43" itemHeight="59" foregroundColor="white" backgroundColor="menubackground" transparent="1" enableWrapAround="1" scrollbarMode="showOnDemand" zPosition="1" />
+	</screen>
+	<screen name="WizardStringList">
+		<widget source="list" render="Listbox" position="907,707" size="1547,9*59" font="youvix-r;43" itemHeight="59" foregroundColor="white" backgroundColor="menubackground" transparent="1" scrollbarMode="showOnDemand">
+			<convert type="StringList" />
+		</widget>
+	</screen>
+	<screen name="WizardRedButton">
+		<ePixmap pixmap="buttons/red.png" position="107,1273" size="47,47" alphatest="blend" transparent="1" />
+		<widget name="languagetext" position="160,1275" size="357,47" font="youvix-r;32" foregroundColor="white" backgroundColor="menubackground" transparent="1" valign="center" noWrap="1" zPosition="1" />
+	</screen>
+	<screen name="WizardRemoteTemplate" position="fill" flags="wfNoBorder">
+		<panel name="__WizardRemoteTemplateOld__" conditional="arrowdown"/>
+		<panel name="__WizardRemoteTemplateNew__" conditional="indicatorU0"/>
+	</screen>
+	<screen name="__WizardRemoteTemplateOld__" position="fill" flags="wfNoBorder" backgroundColor="transparent">
+		<panel name="WizardRemote" />
+		<panel name="WizardRemoteArrowDown" />
+		<panel name="WizardRemoteArrowDown2" />
+		<panel name="WizardRemoteArrowUp" />
+		<panel name="WizardRemoteArrowUp2" />
+	</screen>
+	<screen name="__WizardRemoteTemplateNew__" position="fill" flags="wfNoBorder" backgroundColor="transparent">
+		<panel name="WizardRemote" />
+		<panel name="WizardIndicatorWidget" />
+	</screen>
+	<screen name="WizardIndicatorWidget">
+		<widget alphatest="blend" name="indicatorU0" pixmap="yellow_circle23x23.png" position="413,293" offset="15,15" size="31,31" zPosition="11"/>
+		<widget alphatest="blend" name="indicatorU1" pixmap="yellow_circle23x23.png" position="413,293" offset="15,15" size="31,31" zPosition="11"/>
+		<widget alphatest="blend" name="indicatorU2" pixmap="yellow_circle23x23.png" position="413,293" offset="15,15" size="31,31" zPosition="11"/>
+		<widget alphatest="blend" name="indicatorU3" pixmap="yellow_circle23x23.png" position="413,293" offset="15,15" size="31,31" zPosition="11"/>
+		<widget alphatest="blend" name="indicatorU4" pixmap="yellow_circle23x23.png" position="413,293" offset="15,15" size="31,31" zPosition="11"/>
+		<widget alphatest="blend" name="indicatorU5" pixmap="yellow_circle23x23.png" position="413,293" offset="15,15" size="31,31" zPosition="11"/>
+		<widget alphatest="blend" name="indicatorU6" pixmap="yellow_circle23x23.png" position="413,293" offset="15,15" size="31,31" zPosition="11"/>
+		<widget alphatest="blend" name="indicatorU7" pixmap="yellow_circle23x23.png" position="413,293" offset="15,15" size="31,31" zPosition="11"/>
+		<widget alphatest="blend" name="indicatorU8" pixmap="yellow_circle23x23.png" position="413,293" offset="15,15" size="31,31" zPosition="11"/>
+		<widget alphatest="blend" name="indicatorU9" pixmap="yellow_circle23x23.png" position="413,293" offset="15,15" size="31,31" zPosition="11"/>
+		<widget alphatest="blend" name="indicatorU10" pixmap="yellow_circle23x23.png" position="413,293" offset="15,15" size="31,31" zPosition="11"/>
+		<widget alphatest="blend" name="indicatorU11" pixmap="yellow_circle23x23.png" position="413,293" offset="15,15" size="31,31" zPosition="11"/>
+		<widget alphatest="blend" name="indicatorU12" pixmap="yellow_circle23x23.png" position="413,293" offset="15,15" size="31,31" zPosition="11"/>
+		<widget alphatest="blend" name="indicatorU13" pixmap="yellow_circle23x23.png" position="413,293" offset="15,15" size="31,31" zPosition="11"/>
+		<widget alphatest="blend" name="indicatorU14" pixmap="yellow_circle23x23.png" position="413,293" offset="15,15" size="31,31" zPosition="11"/>
+		<widget alphatest="blend" name="indicatorU15" pixmap="yellow_circle23x23.png" position="413,293" offset="15,15" size="31,31" zPosition="11"/>
+		<widget alphatest="blend" name="indicatorL0" pixmap="yellow_circle23x23.png" position="413,293" offset="15,15" size="31,31" zPosition="11"/>
+		<widget alphatest="blend" name="indicatorL1" pixmap="yellow_circle23x23.png" position="413,293" offset="15,15" size="31,31" zPosition="11"/>
+		<widget alphatest="blend" name="indicatorL2" pixmap="yellow_circle23x23.png" position="413,293" offset="15,15" size="31,31" zPosition="11"/>
+		<widget alphatest="blend" name="indicatorL3" pixmap="yellow_circle23x23.png" position="413,293" offset="15,15" size="31,31" zPosition="11"/>
+		<widget alphatest="blend" name="indicatorL4" pixmap="yellow_circle23x23.png" position="413,293" offset="15,15" size="31,31" zPosition="11"/>
+		<widget alphatest="blend" name="indicatorL5" pixmap="yellow_circle23x23.png" position="413,293" offset="15,15" size="31,31" zPosition="11"/>
+		<widget alphatest="blend" name="indicatorL6" pixmap="yellow_circle23x23.png" position="413,293" offset="15,15" size="31,31" zPosition="11"/>
+		<widget alphatest="blend" name="indicatorL7" pixmap="yellow_circle23x23.png" position="413,293" offset="15,15" size="31,31" zPosition="11"/>
+		<widget alphatest="blend" name="indicatorL8" pixmap="yellow_circle23x23.png" position="413,293" offset="15,15" size="31,31" zPosition="11"/>
+		<widget alphatest="blend" name="indicatorL9" pixmap="yellow_circle23x23.png" position="413,293" offset="15,15" size="31,31" zPosition="11"/>
+		<widget alphatest="blend" name="indicatorL10" pixmap="yellow_circle23x23.png" position="413,293" offset="15,15" size="31,31" zPosition="11"/>
+		<widget alphatest="blend" name="indicatorL11" pixmap="yellow_circle23x23.png" position="413,293" offset="15,15" size="31,31" zPosition="11"/>
+		<widget alphatest="blend" name="indicatorL12" pixmap="yellow_circle23x23.png" position="413,293" offset="15,15" size="31,31" zPosition="11"/>
+		<widget alphatest="blend" name="indicatorL13" pixmap="yellow_circle23x23.png" position="413,293" offset="15,15" size="31,31" zPosition="11"/>
+		<widget alphatest="blend" name="indicatorL14" pixmap="yellow_circle23x23.png" position="413,293" offset="15,15" size="31,31" zPosition="11"/>
+		<widget alphatest="blend" name="indicatorL15" pixmap="yellow_circle23x23.png" position="413,293" offset="15,15" size="31,31" zPosition="11"/>
+	</screen>
+
+	<!-- HELP TEMPLATES -->
+	<screen name="HelpMenuListWidget">
+		<widget source="list" render="Listbox" position="907,208" size="1547,1021" font="youvix-r;37" foregroundColor="white" backgroundColor="menubackground" transparent="1" enableWrapAround="1" scrollbarMode="showOnDemand" zPosition="1">
+			<convert type="TemplatedMultiContent">
+				{
+				  # Template for use when "description" is not used
+				  "templates": {
+					# Simple help with no headings ("flat")
+					# data[1:] = [helpText]
+					"default": [
+					  45,  # itemHeight
+					  [
+					MultiContentEntryText(pos=(0, 0), size=(1547, 60), font=1, text=1),
+					  ]
+					],
+					# Simple help with headings
+					# data[1:] = [heading, None]  # For heading entries
+					# data[1:] = [None, helpText]  # For help entries
+					"default+headings": [  # data[1:] = [helpText]
+					  45,  # itemHeight
+					  [
+					MultiContentEntryText(pos=(0, 0), size=(1547, 67), font=0, text=1),
+					MultiContentEntryText(pos=(27, 0), size=(1520, 53), font=1, text=2),
+					  ]
+					],
+					# Extended help with no headings
+					# data[1:] = [helpText, extendedHelpText]
+					"extended": [
+					  75,  # itemHeight
+					  [
+					MultiContentEntryText(pos=(0, 0), size=(1547, 53), font=1, text=1),
+					MultiContentEntryText(pos=(0, 53), size=(1547, 47), font=3, text=2),
+					  ],
+					],
+					# Extended help with headings
+					# data[1:] = [heading, None, None]  # For heading entries
+					# data[1:] = [None, helpText, extendedHelpText]  # For help entries
+					"extended+headings": [
+					  75,  # itemHeight
+					  [
+					MultiContentEntryText(pos=(0, 13), size=(1547, 53), font=0, text=1),
+					MultiContentEntryText(pos=(27, 0), size=(1520, 53), font=1, text=2),
+					MultiContentEntryText(pos=(27, 53), size=(1520, 47), font=3, text=3),
+					  ],
+					],
+				  },
+				  "fonts": [gFont("youvix-r", 51), gFont("youvix-r", 43), gFont("youvix-r", 43), gFont("youvix-r", 33)],
+				  "itemHeight": 67,
+				}
+				#{
+				#  # Template for use when "description" is used
+				#  "templates": {
+				#	# Simple help with no headings ("flat")
+				#	# data[1:] = [helpText]
+				#	"default": [
+				#	  60,  # itemHeight
+				#	  [
+				#	MultiContentEntryText(pos=(0, 0), size=(1547, 67), font=1, text=1),
+				#	  ]
+				#	],
+				#	# Simple help with headings
+				#	# data[1:] = [heading, None]  # For heading entries
+				#	# data[1:] = [None, helpText]  # For help entries
+				#	"default+headings": [
+				#	  60,  # itemHeight
+				#	  [
+				#	MultiContentEntryText(pos=(0, 0), size=(1547, 67), font=0, text=1),
+				#	MultiContentEntryText(pos=(27, 0), size=(1520, 67), font=1, text=2),
+				#	  ]
+				#	],
+				#	# Extended help with no headings
+				#	# data[1:] = [helpText, extendedHelpText]
+				#	"extended": [
+				#	  60,  # itemHeight
+				#	  [
+				#	MultiContentEntryText(pos=(0, 0), size=(1547, 67), font=1, text=1),
+				#	  ]
+				#	],
+				#	# Extended help with headings
+				#	# data[1:] = [heading, None, None]  # For heading entries
+				#	# data[1:] = [None, helpText, extendedHelpText]  # For help entries
+				#	"extended+headings": [
+				#	  45,  # itemHeight
+				#	  [
+				#	MultiContentEntryText(pos=(0, 0), size=(1547, 67), font=0, text=1),
+				#	MultiContentEntryText(pos=(27, 0), size=(1520, 67), font=1, text=2),
+				#	  ]
+				#	],
+				#  },
+				#  "fonts": [gFont("youvix-r", 43), gFont("youvix-r", 37)],
+				#  "itemHeight": 80
+				#}
+				#{
+				# # Compact template for use when "description" is used
+				#  "templates": dict(
+				#	  list(dict.fromkeys(("default", "extended"), [
+				#	  50,  # itemHeight
+				#	  [
+				#	MultiContentEntryText(pos=(0, 0), size=(1547, 67), font=1, text=1),
+				#	  ]
+				#	]).items()) +
+				#	list(dict.fromkeys(("default+headings", "extended+headings"), [
+				#	  50,  # itemHeight
+				#	  [
+				#	MultiContentEntryText(pos=(0, 0), size=(1547, 67), font=0, text=1),
+				#	MultiContentEntryText(pos=(27, 0), size=(1520, 67), font=1, text=2),
+				#	  ]
+				#	]).items())
+				#  ),
+				#  "fonts": [gFont("youvix-r", 43), gFont("youvix-r", 37)],
+				#  "itemHeight": 67
+				#}
+			</convert>
+		</widget>
+	</screen>
+	<!-- Uses the same screen area as SetupMenuFootnoteWidget -->
+	<screen name="HelpMenuDescriptionWidget">
+		<!-- use size="590,100" if you want the description to appear -->
+		<widget name="description" position="107,1087" size="787,133" font="youvix-r;29" foregroundColor="white" backgroundColor="menubackground2" transparent="1" halign="center" valign="center" zPosition="1" />
+	</screen>
+</skin>

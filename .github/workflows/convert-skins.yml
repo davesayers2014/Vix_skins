@@ -28,20 +28,20 @@ permissions:
 jobs:
   plan:
     name: Check skin names
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       skins: ${{ steps.list.outputs.skins }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Get OpenViX skins
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: OpenViX/skins
           ref: ${{ inputs.skins_ref }}
           path: openvix-skins
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
 
@@ -59,22 +59,22 @@ jobs:
   convert:
     name: Convert ${{ matrix.skin }}
     needs: plan
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
         skin: ${{ fromJSON(needs.plan.outputs.skins) }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Get OpenViX skins
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: OpenViX/skins
           ref: ${{ inputs.skins_ref }}
           path: openvix-skins
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
 
@@ -98,7 +98,7 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
 
       # The artifact download is the installable zip: usr/share/enigma2/<skin>/...
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: ${{ steps.convert.outputs.new_name }}
           path: dist/${{ steps.convert.outputs.new_name }}/
@@ -108,7 +108,7 @@ jobs:
     name: Add to src/skins/1440
     needs: convert
     if: ${{ inputs.add_to_repo && !cancelled() && needs.convert.result != 'skipped' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: write
     # one push at a time if several runs finish together
@@ -116,9 +116,9 @@ jobs:
       group: add-to-repo-${{ github.ref }}
       cancel-in-progress: false
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           path: ${{ runner.temp }}/converted
 
@@ -148,11 +148,11 @@ jobs:
     name: Publish release
     needs: convert
     if: ${{ inputs.release && !cancelled() && needs.convert.result != 'skipped' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: write
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           path: artifacts
 
@@ -175,3 +175,4 @@ jobs:
             --repo "$GITHUB_REPOSITORY" \
             --title "WQHD skins (run ${GITHUB_RUN_NUMBER})" \
             --notes "2560x1440 conversions of OpenViX/skins @ ${SKINS_REF}. Unzip into / on the box - everything lands in /usr/share/enigma2/."
+            

@@ -125,7 +125,7 @@ jobs:
       - name: Copy into src/skins/1440 and write Makefile.am files
         env:
           CONVERTED: ${{ runner.temp }}/converted
-        run: python3 add_to_repo.py --repo-dir src/skins/1440 "$CONVERTED"/*/
+        run: python3 add_to_repo.py --repo-dir src/skins/1440 "$CONVERTED"
 
       - name: Commit and push
         env:
@@ -159,9 +159,11 @@ jobs:
       - name: Zip each skin
         run: |
           mkdir -p release
-          for d in artifacts/*/; do
-            name=$(basename "$d")
-            (cd "$d" && zip -qr "$GITHUB_WORKSPACE/release/$name.zip" .)
+          # one artifact unpacks straight into artifacts/, several get a folder each
+          find artifacts -regex '.*/usr/share/enigma2/[^/]*/skin\.xml' | while read -r skin; do
+            root=${skin%%/usr/share/enigma2/*}
+            name=$(basename "$(dirname "$skin")")
+            (cd "$root" && zip -qr "$GITHUB_WORKSPACE/release/$name.zip" usr)
           done
           ls -l release
 

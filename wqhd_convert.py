@@ -8,8 +8,12 @@ the skin folder (and any shared "Common" folders it uses) so the result
 installs alongside the original.
 
 Usage:
+  # an OpenViX/skins checkout (src/skins/1080 and 720)
   python3 wqhd_convert.py --skins-root path/to/OpenViX-skins/src/skins \
       --skins "Simple_Ten_Eighty,YouViX-Blue" --out dist
+
+  # any repository: skins are found wherever a folder holds a skin.xml
+  python3 wqhd_convert.py --repo-root path/to/checkout --skins all --out dist
 
 Each selected skin produces  dist/<NewName>.zip  (unpacks to
 usr/share/enigma2/...) and  dist/<NewName>-report.txt.
@@ -52,10 +56,12 @@ PIXEL_ATTRS = {
     "setColGap", "setColWidths", "setIconDistance", "setPboxDistance", "setPiconDistance",
     "setPiconSize", "setPict", "setTemp", "setTempUnits", "setTime", "setTimeWidth", "setWind",
     "setWindPict", "setWindUnits", "text1Pos", "text2Pos", "text3Pos", "text4Pos", "textPos",
-    "height", "width", "xres", "yres",
+    "height", "width", "xres", "yres", "resolution", "indent", "listMarginLeft",
+    "listMarginRight", "splitPosition", "itemHeights", "fontSizesOriginal",
 }
 # Attributes that hold numbers which are NOT pixels.
 NON_PIXEL_ATTRS = {
+    "numOfSpaces",
     "zPosition", "zposition", "NumberOfRows", "NumberOfItems", "NoAnimationAfter", "rowsincolumn",
     "colposition", "maxPages", "Wrap", "wrap", "nostrip", "scale", "split", "selectionDisabled",
     "index", "id", "bpp", "version", "replacement", "alphaBlend", "hidePointerOnZeroLength",
@@ -72,11 +78,27 @@ PARAM_NOT_PIXEL = {"AllowUserDatesAndTimes", "AboutHddSplit", "SecondInfoBarSimp
 FONT_VALUE = re.compile(r"^\s*[^;,\"]+;\s*\d+\s*(,\s*[^;,\"]+;\s*\d+\s*)*$")
 INT = re.compile(r"^(\s*)([+-]?\d+)(\s*)$")
 
+# Front-panel (LCD/OLED/VFD) skins and screens keep their own resolution.
+DISPLAY_FILE = re.compile(r"^skin_(display|lcd|vfd|oled|summary)", re.I)
+SCREEN_BLOCK = re.compile(r"<screen\b([^>]*?)(?:/>|>(.*?)</screen>)", re.S)
+OUTPUT_BLOCK = re.compile(r"<output\b([^>]*)>(.*?)</output>", re.S)
+IMAGE_REF = re.compile(r"([\w\-./~+]+\.(?:png|jpe?g|svg))", re.I)
+
+
+def attr_of(attrs, name):
+    m = re.search(rf'(?<![\w-]){name}\s*=\s*"([^"]*)"', attrs or "")
+    return m.group(1) if m else None
+
+
+def is_display_id(v):
+    return v is not None and v.strip() not in ("", "0")
+
 
 class Converter:
-    def __init__(self, factor, renames):
+    def __init__(self, factor, renames, display_names=frozenset()):
         self.f = Fraction(factor)
         self.renames = renames  # {old_folder: new_folder}
+        self.display_names = set(display_names)  # screen templates used only by front-panel screens
         self.log = collections.Counter()
         self.unknown = collections.Counter()
         self.left_expr = collections.Counter()
@@ -207,11 +229,28 @@ class Converter:
         return text
 
     def convert_xml(self, text):
+        # front-panel screens and outputs are set aside untouched, then put back
+        kept = []
+
+        def keep(m):
+            kept.append(m.group(0))
+            return f"\x00KEEP{len(kept) - 1}\x00"
+
+        text = OUTPUT_BLOCK.sub(lambda m: keep(m) if is_display_id(attr_of(m.group(1), "id")) else m.group(0), text)
+
+        def screen(m):
+            a = m.group(1)
+            if is_display_id(attr_of(a, "id")) or attr_of(a, "name") in self.display_names:
+                self.log["front-panel screens left at their own size"] += 1
+                return keep(m)
+            return m.group(0)
+        text = SCREEN_BLOCK.sub(screen, text)
         text = self.TAG.sub(self.scale_tag, text)
         text = re.sub(r'(<convert\s+type="TemplatedMultiContent"\s*>)(.*?)(</convert>)',
                       lambda m: m.group(1) + self.scale_code_block(m.group(2)) + m.group(3), text, flags=re.S)
         text = re.sub(r"(<applet\b[^>]*>)(.*?)(</applet>)",
                       lambda m: m.group(1) + self.scale_applet(m.group(2)) + m.group(3), text, flags=re.S)
+        text = re.sub(r"\x00KEEP(\d+)\x00", lambda m: kept[int(m.group(1))], text)
         return self.rename_refs(text)
 
     # -- images --------------------------------------------------------------
@@ -257,11 +296,41 @@ def index_folders(skins_root):
     return found
 
 
+# Symlinks are followed only while they stay inside this tree (set by main), so a
+# repository can't pull files from elsewhere on the machine into the output.
+ALLOWED_ROOT = None
+
+
+def inside_allowed(path):
+    if ALLOWED_ROOT is None:
+        return True
+    real = os.path.realpath(path)
+    return real == ALLOWED_ROOT or real.startswith(ALLOWED_ROOT + os.sep)
+
+
+def walk_files(folder, skip_dirs=()):
+    """Relative paths of every file under folder. Symlinked folders/files are followed
+    (some repos share assets that way) but only inside ALLOWED_ROOT, and never in a loop."""
+    seen = set()
+    out = []
+    for root, dirs, files in os.walk(folder, followlinks=True):
+        real = os.path.realpath(root)
+        if real in seen or not inside_allowed(root):
+            dirs[:] = []
+            continue
+        seen.add(real)
+        dirs[:] = sorted(d for d in dirs if d not in skip_dirs and d not in SKIP_DIRS)
+        for f in sorted(files):
+            p = os.path.join(root, f)
+            if os.path.isfile(p) and inside_allowed(p):
+                out.append(os.path.relpath(p, folder))
+    return out
+
+
 def xml_files(folder):
-    for root, _, files in os.walk(folder):
-        for f in files:
-            if f.lower().endswith(".xml"):
-                yield os.path.join(root, f)
+    for rel in walk_files(folder):
+        if rel.lower().endswith(".xml"):
+            yield os.path.join(folder, rel)
 
 
 def find_refs(folder, known):
@@ -281,25 +350,151 @@ def find_refs(folder, known):
     return refs
 
 
-def skin_resolution(folder):
-    p = os.path.join(folder, "skin.xml")
-    if os.path.exists(p):
-        m = re.search(r'xres="(\d+)"', open(p, encoding="utf-8", errors="replace").read())
-        if m:
-            return int(m.group(1))
+def _read(p):
+    return re.sub(r"<!--.*?-->", "", open(p, encoding="utf-8", errors="replace").read(), flags=re.S)
+
+
+def skin_size(folder):
+    """(xres, yres) of the GUI output, from skin.xml or a file it includes; None if not found."""
+    name = os.path.basename(os.path.normpath(folder))
+    todo, seen = [os.path.join(folder, "skin.xml")], set()
+    while todo:
+        p = todo.pop(0)
+        if p in seen or not os.path.isfile(p):
+            continue
+        seen.add(p)
+        t = _read(p)
+        for m in OUTPUT_BLOCK.finditer(t):
+            if is_display_id(attr_of(m.group(1), "id")):
+                continue
+            r = re.search(r"<resolution\b([^>]*)>", m.group(2))
+            if r:
+                x, y = attr_of(r.group(1), "xres"), attr_of(r.group(1), "yres")
+                if x and x.isdigit():
+                    return int(x), int(y) if y and y.isdigit() else None
+        for inc in re.findall(r'<include\b[^>]*filename="([^"]+)"', t):
+            if inc.startswith("/usr/share/enigma2/"):
+                parts = inc[len("/usr/share/enigma2/"):].split("/", 1)
+                if parts[0] == name and len(parts) == 2:
+                    todo.append(os.path.join(folder, parts[1]))
+            elif not inc.startswith("/"):
+                todo.append(os.path.normpath(os.path.join(folder, inc)))
     return None
 
 
+def skin_resolution(folder):
+    size = skin_size(folder)
+    return size[0] if size else None
+
+
+def why_not_convertible(folder):
+    """None if the skin can be converted, else the reason."""
+    size = skin_size(folder)
+    if not size:
+        return "no screen resolution found in its skin.xml (or the files it includes)"
+    x, y = size
+    if x == TARGET_W:
+        return f"it is already {TARGET_W} wide"
+    if y and x * 9 != y * 16:
+        return f"it is {x}x{y}, not 16:9, so it can't be scaled evenly to {TARGET_W}x{TARGET_H}"
+    if x > TARGET_W:
+        return f"it is {x} wide, larger than {TARGET_W}"
+    return None
+
+
+SKIP_DIRS = {".git", ".github", "node_modules", "__pycache__", ".svn"}
+
+
+def discover_repo(root, root_name=None):
+    """Any repository: every folder holding a skin.xml is a skin; its sibling folders are
+    candidates for shared folders it may reference. Returns (folders, skins, duplicates)."""
+    root = os.path.abspath(root)
+    skins, dups = {}, []
+    for dirpath, dirs, files in os.walk(root):
+        dirs[:] = sorted(d for d in dirs if d not in SKIP_DIRS)
+        if "skin.xml" in files:
+            name = os.path.basename(dirpath) if dirpath != root else (root_name or os.path.basename(root))
+            if name in skins:
+                dups.append(os.path.relpath(dirpath, root))
+            else:
+                skins[name] = dirpath
+    folders = dict(skins)
+    for path in list(skins.values()):
+        parent = os.path.dirname(path)
+        if path == root:
+            continue
+        for d in sorted(os.listdir(parent)):
+            q = os.path.join(parent, d)
+            if os.path.isdir(q) and d not in SKIP_DIRS:
+                folders.setdefault(d, q)
+    return folders, skins, dups
+
+
+def norm_ref(ref, own, deps):
+    """'/usr/share/enigma2/X/a.png', 'X/a.png' or 'a.png' -> (folder, path inside it)."""
+    r = ref.split("#")[0]
+    if r.startswith("/usr/share/enigma2/"):
+        r = r[len("/usr/share/enigma2/"):]
+    first, _, rest = r.partition("/")
+    if rest and first in deps:
+        return first, rest
+    return own, r
+
+
+def analyse_display(dep_xmls, own, deps):
+    """Find front-panel material in a skin: whole display files, screen templates used only
+    by front-panel screens, and images used only there. Returns
+    (display_files, display_names, display_only_images)."""
+    whole, screens = set(), []  # screens: [name, is_display, body]
+    disp_refs, main_refs = set(), set()
+
+    def refs_in(text, dep):
+        out = set()
+        for v in re.findall(r'"([^"]*)"', text):
+            for tok in IMAGE_REF.findall(v):
+                out.add(norm_ref(tok.split(":")[-1], dep, deps))
+        return out
+
+    for dep, path in dep_xmls:
+        t = _read(path)
+        outs = [attr_of(m.group(1), "id") for m in re.finditer(r"<output\b([^>]*)>", t)]
+        if DISPLAY_FILE.match(os.path.basename(path)) or (outs and all(is_display_id(o) for o in outs)):
+            whole.add(path)
+            disp_refs |= refs_in(t, dep)
+            continue
+        for m in SCREEN_BLOCK.finditer(t):
+            a = m.group(1)
+            screens.append([attr_of(a, "name"), is_display_id(attr_of(a, "id")), m.group(0), dep])
+        rest = SCREEN_BLOCK.sub("", t)
+        main_refs |= refs_in(rest, dep)
+
+    def panels(body):
+        return set(re.findall(r'<panel\b[^>]*\bname="([^"]+)"', body))
+
+    changed = True
+    while changed:
+        changed = False
+        from_disp = set().union(*[panels(s[2]) for s in screens if s[1]])
+        from_main = set().union(*[panels(s[2]) for s in screens if not s[1]])
+        for s in screens:
+            if not s[1] and s[0] in from_disp and s[0] not in from_main:
+                s[1] = True
+                changed = True
+    names = {s[0] for s in screens if s[1] and s[0]}
+    for s in screens:
+        (disp_refs if s[1] else main_refs).update(refs_in(s[2], s[3]))
+    return whole, names, disp_refs - main_refs
+
+
 # ---------------------------------------------------------------------------
-def convert_skin(name, folders, out_dir, rename_overrides):
+def convert_skin(name, folders, out_dir, rename_overrides, include_extras=True):
     if name not in folders:
         raise SystemExit(f"Skin '{name}' not found. Available: {', '.join(sorted(folders))}")
     src = folders[name]
-    xres = skin_resolution(src)
-    if not xres:
-        raise SystemExit(f"'{name}' has no skin.xml with a resolution - is it a shared/common folder?")
-    if xres == TARGET_W:
-        raise SystemExit(f"'{name}' is already {TARGET_W} wide")
+    reason = why_not_convertible(src)
+    if reason:
+        raise SystemExit(f"can't convert '{name}': {reason}")
+    xres = skin_size(src)[0]
     factor = Fraction(TARGET_W, xres)
 
     # dependency closure
@@ -324,24 +519,23 @@ def convert_skin(name, folders, out_dir, rename_overrides):
         if n in folders:
             raise SystemExit(f"New name '{n}' for '{d}' clashes with an existing skin folder; use --rename {d}=OtherName")
 
-    conv = Converter(factor, renames)
+    dep_xmls = [(d, p) for d, dp in deps.items() if d not in partial for p in xml_files(dp)]
+    display_files, display_names, display_imgs = analyse_display(dep_xmls, name, set(deps))
+    conv = Converter(factor, renames, display_names)
     new_name = renames[name]
     stage = os.path.join(out_dir, new_name)
     if os.path.exists(stage):
         shutil.rmtree(stage)
     root_out = os.path.join(stage, "usr", "share", "enigma2")
     counts = collections.Counter()
-    missing = []
+    missing, unreadable = [], []
 
     for dep, dep_src in deps.items():
         dst_root = os.path.join(root_out, renames[dep])
         if dep in partial:
             files = sorted(p for p in partial[dep] if p and not p.endswith("/"))
         else:
-            files = []
-            for r, _, fs in os.walk(dep_src):
-                for f in fs:
-                    files.append(os.path.relpath(os.path.join(r, f), dep_src))
+            files = walk_files(dep_src)
         for rel in files:
             s, d = os.path.join(dep_src, rel), os.path.join(dst_root, rel)
             base = os.path.basename(rel)
@@ -349,21 +543,53 @@ def convert_skin(name, folders, out_dir, rename_overrides):
                 continue
             if rel.split(os.sep)[0] == "meta":  # package metadata installs to /usr/share/meta, handled below
                 continue
-            if not os.path.isfile(s):
+            if not os.path.isfile(s) or not inside_allowed(s):
                 missing.append(f"{dep}/{rel}")
                 continue
             os.makedirs(os.path.dirname(d), exist_ok=True)
             low = rel.lower()
-            if low.endswith(".xml"):
-                text = open(s, "rb").read().decode("utf-8")
+            rel_web = rel.replace(os.sep, "/")
+            if low.endswith(".xml") and s in display_files:
+                text = open(s, "rb").read().decode("utf-8", errors="replace")
+                open(d, "wb").write(conv.rename_refs(text).encode("utf-8"))  # front-panel skin: paths only
+                counts["display xml (unscaled)"] += 1
+            elif low.endswith(".xml"):
+                text = open(s, "rb").read().decode("utf-8", errors="replace")
                 open(d, "wb").write(conv.convert_xml(text).encode("utf-8"))
                 counts["xml"] += 1
+            elif (dep, rel_web) in display_imgs:
+                shutil.copy2(s, d)
+                counts["front-panel images (unscaled)"] += 1
             elif low.endswith((".png", ".jpg", ".jpeg")):
-                conv.convert_image(s, d)
-                counts["images"] += 1
+                try:
+                    conv.convert_image(s, d)
+                    counts["images"] += 1
+                except Exception as e:  # empty/corrupt file: keep it as it is
+                    shutil.copy2(s, d)
+                    unreadable.append(f"{dep}/{rel_web}  ({type(e).__name__})")
             else:
                 shutil.copy2(s, d)
                 counts["copied"] += 1
+
+    # plugin-style repos: usr/share/enigma2/<skin> next to usr/lib/enigma2 (renderers,
+    # converters) and usr/share/fonts -> carried along unchanged so the skin still works
+    extras = []
+    tail = os.path.join("usr", "share", "enigma2", os.path.basename(src))
+    if include_extras and os.path.normpath(src).endswith(tail):
+        prefix = os.path.normpath(src)[:-len(tail)]
+        for sub in (os.path.join("usr", "lib", "enigma2"), os.path.join("usr", "share", "fonts")):
+            base = os.path.join(prefix, sub)
+            if not os.path.isdir(base):
+                continue
+            for r in walk_files(base):
+                s = os.path.join(base, r)
+                rel = os.path.relpath(s, prefix)
+                d = os.path.join(stage, rel)
+                os.makedirs(os.path.dirname(d), exist_ok=True)
+                shutil.copy2(s, d)
+                extras.append(rel.replace(os.sep, "/"))
+        if extras:
+            counts["plugin/font files (unchanged)"] = len(extras)
 
     # package metadata (src/skins/<res>/<skin>/meta/skin_<skin>.xml installs to /usr/share/meta)
     meta_src = os.path.join(src, "meta", f"skin_{name}.xml")
@@ -394,6 +620,20 @@ def convert_skin(name, folders, out_dir, rename_overrides):
         how = "only the files it uses" if dep in partial else "full folder"
         lines.append(f"  {dep} -> {renames[dep]}  ({how})")
     lines += ["", f"Files: {dict(counts)}", ""]
+    if display_files or display_imgs or conv.log.get("front-panel screens left at their own size"):
+        lines.append("Front-panel (LCD/OLED) parts left at their own size:")
+        lines += [f"  file {os.path.relpath(p, src)}" for p in sorted(display_files)]
+        lines.append(f"  {conv.log.get('front-panel screens left at their own size', 0)} front-panel screens,"
+                     f" {len(display_imgs)} images used only by them")
+        lines.append("")
+    if extras:
+        py = [e for e in extras if e.endswith((".py", ".pyc", ".pyo", ".so"))]
+        lines.append(f"Plugin and font files copied unchanged ({len(extras)}): renderers/converters are"
+                     " NOT rescaled - if one draws at fixed pixel sizes it will look small:")
+        lines += [f"  {e}" for e in py[:40]] + (["  ..."] if len(py) > 40 else []) + [""]
+    if unreadable:
+        lines.append("Images that couldn't be read (copied unchanged - check them):")
+        lines += [f"  {u}" for u in unreadable] + [""]
     if missing:
         lines.append("Referenced files not found in the repo (left out):")
         lines += [f"  {m}" for m in missing] + [""]
@@ -424,29 +664,61 @@ def convert_skin(name, folders, out_dir, rename_overrides):
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--skins-root", required=True, help="the repo's src/skins folder (contains 1080/ and 720/)")
+    src = ap.add_mutually_exclusive_group(required=True)
+    src.add_argument("--skins-root", help="an OpenViX/skins src/skins folder (contains 1080/ and 720/)")
+    src.add_argument("--repo-root", help="any checkout: skins are found wherever a folder holds a skin.xml")
+    ap.add_argument("--checkout-root", help="with --repo-root pointing inside a checkout: the checkout itself"
+                    " (symlinks may point anywhere inside it; default: --repo-root)")
+    ap.add_argument("--repo-name", help="name for a skin whose skin.xml sits at the repo root (default: folder name)")
     ap.add_argument("--skins", required=True, help="comma separated skin folder names, or 'all'")
     ap.add_argument("--out", default="dist")
     ap.add_argument("--rename", action="append", default=[], metavar="OLD=NEW",
                     help="override an output folder name (repeatable)")
+    ap.add_argument("--no-extras", action="store_true",
+                    help="don't copy a repo's usr/lib/enigma2 and usr/share/fonts files alongside the skin")
     ap.add_argument("--list", action="store_true",
                     help="only check the names and print them as a JSON list (used by the workflow)")
     a = ap.parse_args(argv)
-    folders = index_folders(a.skins_root)
+    global ALLOWED_ROOT
+    ALLOWED_ROOT = os.path.realpath(a.checkout_root or a.skins_root or a.repo_root)
     overrides = dict(r.split("=", 1) for r in a.rename)
-    convertible = [n for n, p in folders.items() if skin_resolution(p) and n != "Default1080"]
+    if a.skins_root:
+        folders = index_folders(a.skins_root)
+        skins = {n: p for n, p in folders.items() if os.path.isfile(os.path.join(p, "skin.xml"))}
+        dups = []
+    else:
+        folders, skins, dups = discover_repo(a.repo_root, a.repo_name)
+    for d in dups:
+        print(f"Note: a second skin folder with the same name was ignored: {d}", file=sys.stderr)
+    reasons = {n: why_not_convertible(p) for n, p in skins.items()}
+    if "Default1080" in reasons:
+        reasons["Default1080"] = "it only wraps the image's built-in skin_default.xml"
+    convertible = [n for n in skins if not reasons[n]]
     if a.skins.strip().lower() == "all":
-        names = [n for n in convertible if os.path.basename(os.path.dirname(folders[n])) == "1080"]
+        if a.skins_root:
+            names = [n for n in convertible if os.path.basename(os.path.dirname(folders[n])) == "1080"]
+        else:
+            names = convertible
+        if not names:
+            print("ERROR: no convertible skins found.", file=sys.stderr)
+            for n, r in sorted(reasons.items()):
+                print(f"  {n}: {r}", file=sys.stderr)
+            if not skins:
+                print("  (no folder in this repository contains a skin.xml)", file=sys.stderr)
+            sys.exit(2)
     else:
         names = list(dict.fromkeys(s.strip().strip("/") for s in re.split(r"[,\s]+", a.skins) if s.strip()))
     bad = [n for n in names if n not in convertible]
     if bad:
-        hint = {"Default1080": "it only wraps the image's built-in skin_default.xml"}
         for n in bad:
-            why = hint.get(n) or ("it is a shared folder used by other skins, not a skin" if n in folders
-                                  else "no such folder in 1080/ or 720/")
+            if n in reasons:
+                why = reasons[n]
+            elif n in folders:
+                why = "it is a shared folder used by other skins, not a skin"
+            else:
+                why = "no skin folder with that name" + (" in 1080/ or 720/" if a.skins_root else " in this repository")
             print(f"ERROR: can't convert '{n}': {why}", file=sys.stderr)
-        print("Convertible skins: " + ", ".join(sorted(convertible, key=str.lower)), file=sys.stderr)
+        print("Convertible skins: " + (", ".join(sorted(convertible, key=str.lower)) or "none"), file=sys.stderr)
         sys.exit(2)
     if a.list:
         import json
@@ -456,7 +728,7 @@ def main(argv=None):
     failed = []
     for n in names:
         try:
-            zpath = convert_skin(n, folders, a.out, overrides)
+            zpath = convert_skin(n, folders, a.out, overrides, include_extras=not a.no_extras)
         except SystemExit as e:
             print(f"ERROR {n}: {e}", file=sys.stderr)
             failed.append(n)
